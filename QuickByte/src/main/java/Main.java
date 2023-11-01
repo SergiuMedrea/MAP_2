@@ -1,5 +1,8 @@
+import ui.UI;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("milmoi");
+        UI ui = new UI();
+        ui.run();
     }
 }
