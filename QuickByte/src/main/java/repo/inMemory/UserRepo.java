@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.User;
+import domain.User;
 
 import java.util.ArrayList;
 import java.util.List;

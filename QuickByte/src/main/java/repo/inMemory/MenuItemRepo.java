@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.MenuItem;
+import domain.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.Promotion;
+import domain.Promotion;
 
 import java.util.ArrayList;
 import java.sql.Date;

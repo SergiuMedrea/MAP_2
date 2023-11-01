@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.User;
+import domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +40,7 @@ class UserRepoTest {
     @org.junit.jupiter.api.Test
     void deleteUser() {
         User created = repo.createUser("testuser1", null, "0733627436");
-        repo.deleteUser(created.userID());
-
+        assert repo.deleteUser(created.userID());
         assert repo.getUserByID(created.userID()) == null;
     }
 }

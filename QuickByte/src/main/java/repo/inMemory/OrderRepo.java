@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.Order;
+import domain.Order;
 
 import java.util.ArrayList;
 import java.sql.Date;

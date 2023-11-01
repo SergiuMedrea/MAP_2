@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.Review;
+import domain.Review;
 
 import java.util.ArrayList;
 import java.util.List;

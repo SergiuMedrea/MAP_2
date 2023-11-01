@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.PaymentMethod;
+import domain.PaymentMethod;
 
 import java.util.ArrayList;
 import java.util.List;

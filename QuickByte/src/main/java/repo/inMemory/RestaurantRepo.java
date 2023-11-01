@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.Restaurant;
+import domain.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;

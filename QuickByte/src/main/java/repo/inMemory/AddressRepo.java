@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.Address;
+import domain.Address;
 
 import java.util.ArrayList;
 import java.util.List;

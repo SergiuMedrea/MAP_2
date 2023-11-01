@@ -1,6 +1,6 @@
 package repo.inMemory;
 
-import entities.Courier;
+import domain.Courier;
 
 import java.util.ArrayList;
 import java.util.List;
