@@ -21,7 +21,7 @@ public class CategoryUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -68,7 +68,7 @@ public class CategoryUI {
     private static void updateCategory() {
         System.out.print("Enter category ID to update: ");
         Long categoryID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Category existingCategory = categoryRepo.getCategoryByID(categoryID);
         if (existingCategory != null) {
@@ -88,7 +88,7 @@ public class CategoryUI {
     private static void deleteCategory() {
         System.out.print("Enter category ID to delete: ");
         Long categoryID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = categoryRepo.deleteCategory(categoryID);
         if (deleted) {

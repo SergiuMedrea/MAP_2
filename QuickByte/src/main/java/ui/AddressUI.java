@@ -70,10 +70,11 @@ public class AddressUI {
         }
     }
 
-    private static void updateAddress() {
+    public static Address updateAddress() {
         System.out.print("Enter address ID to update: ");
         Long addressID = scanner.nextLong();
         scanner.nextLine();
+        Address updatedAddress = null;
 
         Address existingAddress = addressRepo.getAddressByID(addressID);
         if (existingAddress != null) {
@@ -86,12 +87,13 @@ public class AddressUI {
             System.out.print("Enter new country: ");
             String country = scanner.nextLine();
 
-            Address updatedAddress = new Address(addressID, street, postalCode, city, country);
+            updatedAddress = new Address(addressID, street, postalCode, city, country);
             addressRepo.updateAddress(updatedAddress);
             System.out.println("Address updated successfully.");
         } else {
             System.out.println("Address not found.");
         }
+        return updatedAddress;
     }
 
     private static void deleteAddress() {

@@ -1,8 +1,5 @@
 package ui;
 
-import domain.MenuItem;
-import domain.PaymentMethod;
-
 import java.util.Scanner;
 public class UI {
     private static final Scanner scanner = new Scanner(System.in);

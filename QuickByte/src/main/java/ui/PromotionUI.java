@@ -22,7 +22,7 @@ public class PromotionUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -59,12 +59,12 @@ public class PromotionUI {
         Date endDate = Date.valueOf(endDateString);
         System.out.print("Enter discount percentage: ");
         int discountPercentage = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         System.out.print("Enter coupon code: ");
         String couponCode = scanner.nextLine();
         System.out.print("Enter restaurant ID: ");
         Long restaurantID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Promotion newPromotion = promotionRepo.createPromotion(name, description, startDate, endDate, discountPercentage, couponCode, restaurantID);
         System.out.println("Promotion created with ID: " + newPromotion.promotionID());
@@ -88,7 +88,7 @@ public class PromotionUI {
     private static void updatePromotion() {
         System.out.print("Enter promotion ID to update: ");
         Long promotionID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Promotion existingPromotion = promotionRepo.getPromotionByID(promotionID);
         if (existingPromotion != null) {
@@ -104,12 +104,12 @@ public class PromotionUI {
             Date endDate = Date.valueOf(endDateString);
             System.out.print("Enter new discount percentage: ");
             int discountPercentage = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             System.out.print("Enter new coupon code: ");
             String couponCode = scanner.nextLine();
             System.out.print("Enter new restaurant ID: ");
             Long restaurantID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             Promotion updatedPromotion = new Promotion(promotionID, name, description, startDate, endDate, discountPercentage, couponCode, restaurantID);
             promotionRepo.updatePromotion(updatedPromotion);
@@ -122,7 +122,7 @@ public class PromotionUI {
     private static void deletePromotion() {
         System.out.print("Enter promotion ID to delete: ");
         Long promotionID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = promotionRepo.deletePromotion(promotionID);
         if (deleted) {

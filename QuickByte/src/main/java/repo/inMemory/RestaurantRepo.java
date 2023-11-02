@@ -1,5 +1,6 @@
 package repo.inMemory;
 
+import domain.Address;
 import domain.Restaurant;
 
 import java.util.ArrayList;
@@ -9,8 +10,8 @@ public class RestaurantRepo {
     private final List<Restaurant> restaurants = new ArrayList<>();
     private long nextRestaurantID = 1;
 
-    public Restaurant createRestaurant(String name, Long addressID) {
-        Restaurant newRestaurant = new Restaurant(nextRestaurantID, name, addressID);
+    public Restaurant createRestaurant(String name, Address address) {
+        Restaurant newRestaurant = new Restaurant(nextRestaurantID, name, address);
         restaurants.add(newRestaurant);
         nextRestaurantID++;
         return newRestaurant;

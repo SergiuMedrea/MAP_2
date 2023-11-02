@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Address;
 import domain.Restaurant;
 import repo.inMemory.RestaurantRepo;
 
@@ -21,7 +22,7 @@ public class RestaurantUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -48,11 +49,10 @@ public class RestaurantUI {
     private static void createRestaurant() {
         System.out.print("Enter restaurant name: ");
         String name = scanner.nextLine();
-        System.out.print("Enter address ID: ");
-        Long addressID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        System.out.print("Enter address\n");
+        Address address = AddressUI.createAddress();
 
-        Restaurant newRestaurant = restaurantRepo.createRestaurant(name, addressID);
+        Restaurant newRestaurant = restaurantRepo.createRestaurant(name, address);
         System.out.println("Restaurant created with ID: " + newRestaurant.restaurantID());
     }
 
@@ -62,24 +62,23 @@ public class RestaurantUI {
         for (Restaurant restaurant : restaurants) {
             System.out.println("ID: " + restaurant.restaurantID() +
                     ", Name: " + restaurant.name() +
-                    ", Address ID: " + restaurant.addressID());
+                    ", Address ID: " + restaurant.address());
         }
     }
 
     private static void updateRestaurant() {
         System.out.print("Enter restaurant ID to update: ");
         Long restaurantID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Restaurant existingRestaurant = restaurantRepo.getRestaurantByID(restaurantID);
         if (existingRestaurant != null) {
             System.out.print("Enter new restaurant name: ");
             String name = scanner.nextLine();
-            System.out.print("Enter new address ID: ");
-            Long addressID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            System.out.print("Enter new address info\n");
+            Address address = AddressUI.updateAddress();
 
-            Restaurant updatedRestaurant = new Restaurant(restaurantID, name, addressID);
+            Restaurant updatedRestaurant = new Restaurant(restaurantID, name, address);
             restaurantRepo.updateRestaurant(updatedRestaurant);
             System.out.println("Restaurant updated successfully.");
         } else {
@@ -90,7 +89,7 @@ public class RestaurantUI {
     private static void deleteRestaurant() {
         System.out.print("Enter restaurant ID to delete: ");
         Long restaurantID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = restaurantRepo.deleteRestaurant(restaurantID);
         if (deleted) {

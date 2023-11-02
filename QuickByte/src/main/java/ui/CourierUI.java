@@ -1,6 +1,7 @@
 package ui;
 
 import domain.Courier;
+import domain.User;
 import repo.inMemory.CourierRepo;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class CourierUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -46,24 +47,22 @@ public class CourierUI {
     }
 
     private static void createCourier() {
-        System.out.print("Enter courier name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter courier phone number: ");
-        String phoneNumber = scanner.nextLine();
+        System.out.print("Enter courier info\n");
+        User user = UserUI.createUser();
         System.out.print("Enter courier vehicle type: ");
         String vehicleType = scanner.nextLine();
 
-        Courier newCourier = courierRepo.createCourier(name, phoneNumber, vehicleType);
-        System.out.println("Courier created with ID: " + newCourier.courierID());
+        Courier newCourier = courierRepo.createCourier(user, vehicleType);
+        System.out.println("Courier created with ID: " + newCourier.user().userID());
     }
 
     private static void viewCouriers() {
         System.out.println("Couriers:");
         List<Courier> couriers = courierRepo.getAllCouriers();
         for (Courier courier : couriers) {
-            System.out.println("ID: " + courier.courierID() +
-                    ", Name: " + courier.name() +
-                    ", Phone Number: " + courier.phoneNumber() +
+            System.out.println("ID: " + courier.user().userID() +
+                    ", Name: " + courier.user().name() +
+                    ", Phone Number: " + courier.user().phoneNumber() +
                     ", Vehicle Type: " + courier.vehicleType());
         }
     }
@@ -71,18 +70,16 @@ public class CourierUI {
     private static void updateCourier() {
         System.out.print("Enter courier ID to update: ");
         Long courierID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Courier existingCourier = courierRepo.getCourierByID(courierID);
         if (existingCourier != null) {
-            System.out.print("Enter new courier name: ");
-            String name = scanner.nextLine();
-            System.out.print("Enter new courier phone number: ");
-            String phoneNumber = scanner.nextLine();
+            System.out.print("Enter new courier info\n");
+            User user = UserUI.updateUser();
             System.out.print("Enter new courier vehicle type: ");
             String vehicleType = scanner.nextLine();
 
-            Courier updatedCourier = new Courier(courierID, name, phoneNumber, vehicleType);
+            Courier updatedCourier = new Courier(user, vehicleType);
             courierRepo.updateCourier(updatedCourier);
             System.out.println("Courier updated successfully.");
         } else {
@@ -93,7 +90,7 @@ public class CourierUI {
     private static void deleteCourier() {
         System.out.print("Enter courier ID to delete: ");
         Long courierID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = courierRepo.deleteCourier(courierID);
         if (deleted) {

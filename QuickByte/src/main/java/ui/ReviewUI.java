@@ -21,7 +21,7 @@ public class ReviewUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -48,15 +48,15 @@ public class ReviewUI {
     private static void createReview() {
         System.out.print("Enter rating (1-5): ");
         int rating = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         System.out.print("Enter comment: ");
         String comment = scanner.nextLine();
         System.out.print("Enter user ID: ");
         Long userID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         System.out.print("Enter restaurant ID: ");
         Long restaurantID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Review newReview = reviewRepo.createReview(rating, comment, userID, restaurantID);
         System.out.println("Review created with ID: " + newReview.reviewID());
@@ -77,21 +77,21 @@ public class ReviewUI {
     private static void updateReview() {
         System.out.print("Enter review ID to update: ");
         Long reviewID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Review existingReview = reviewRepo.getReviewByID(reviewID);
         if (existingReview != null) {
             System.out.print("Enter new rating (1-5): ");
             int rating = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             System.out.print("Enter new comment: ");
             String comment = scanner.nextLine();
             System.out.print("Enter new user ID: ");
             Long userID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             System.out.print("Enter new restaurant ID: ");
             Long restaurantID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             Review updatedReview = new Review(reviewID, rating, comment, userID, restaurantID);
             reviewRepo.updateReview(updatedReview);
@@ -104,7 +104,7 @@ public class ReviewUI {
     private static void deleteReview() {
         System.out.print("Enter review ID to delete: ");
         Long reviewID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = reviewRepo.deleteReview(reviewID);
         if (deleted) {

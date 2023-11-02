@@ -22,7 +22,7 @@ public class OrderUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -46,19 +46,19 @@ public class OrderUI {
         }
     }
 
-    private static void createOrder() {
+    public static void createOrder() {
         System.out.print("Enter order date (YYYY-MM-DD): ");
         String dateString = scanner.nextLine();
         Date date = Date.valueOf(dateString);
         System.out.print("Enter user ID: ");
         Long userID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         System.out.print("Enter courier ID: ");
         Long courierID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         System.out.print("Enter address ID: ");
         Long addressID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Order newOrder = orderRepo.createOrder(date, userID, courierID, addressID);
         System.out.println("Order created with ID: " + newOrder.orderID());
@@ -79,7 +79,7 @@ public class OrderUI {
     private static void updateOrder() {
         System.out.print("Enter order ID to update: ");
         Long orderID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Order existingOrder = orderRepo.getOrderByID(orderID);
         if (existingOrder != null) {
@@ -88,13 +88,13 @@ public class OrderUI {
             Date date = Date.valueOf(dateString);
             System.out.print("Enter new user ID: ");
             Long userID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             System.out.print("Enter new courier ID: ");
             Long courierID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             System.out.print("Enter new address ID: ");
             Long addressID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             Order updatedOrder = new Order(orderID, date, userID, courierID, addressID);
             orderRepo.updateOrder(updatedOrder);
@@ -107,7 +107,7 @@ public class OrderUI {
     private static void deleteOrder() {
         System.out.print("Enter order ID to delete: ");
         Long orderID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = orderRepo.deleteOrder(orderID);
         if (deleted) {

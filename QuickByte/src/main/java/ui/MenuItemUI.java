@@ -21,7 +21,7 @@ public class MenuItemUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -50,14 +50,14 @@ public class MenuItemUI {
         String name = scanner.nextLine();
         System.out.print("Enter menu item price: ");
         int price = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         System.out.print("Enter menu item description: ");
         String description = scanner.nextLine();
         System.out.print("Enter menu item category: ");
         String category = scanner.nextLine();
         System.out.print("Enter restaurant ID: ");
         Long restaurantID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         MenuItem newMenuItem = menuItemRepo.createMenuItem(name, price, description, category, restaurantID);
         System.out.println("Menu item created with ID: " + newMenuItem.menuItemID());
@@ -79,7 +79,7 @@ public class MenuItemUI {
     private static void updateMenuItem() {
         System.out.print("Enter menu item ID to update: ");
         Long menuItemID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         MenuItem existingMenuItem = menuItemRepo.getMenuItemByID(menuItemID);
         if (existingMenuItem != null) {
@@ -87,14 +87,14 @@ public class MenuItemUI {
             String name = scanner.nextLine();
             System.out.print("Enter new menu item price: ");
             int price = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             System.out.print("Enter new menu item description: ");
             String description = scanner.nextLine();
             System.out.print("Enter new menu item category: ");
             String category = scanner.nextLine();
             System.out.print("Enter new restaurant ID: ");
             Long restaurantID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             MenuItem updatedMenuItem = new MenuItem(menuItemID, name, price, description, category, restaurantID);
             menuItemRepo.updateMenuItem(updatedMenuItem);
@@ -107,7 +107,7 @@ public class MenuItemUI {
     private static void deleteMenuItem() {
         System.out.print("Enter menu item ID to delete: ");
         Long menuItemID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = menuItemRepo.deleteMenuItem(menuItemID);
         if (deleted) {

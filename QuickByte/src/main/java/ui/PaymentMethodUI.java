@@ -21,7 +21,7 @@ public class PaymentMethodUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -52,10 +52,10 @@ public class PaymentMethodUI {
         String accountInformation = scanner.nextLine();
         System.out.print("Enter user ID: ");
         Long userID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         System.out.print("Enter order ID: ");
         Long orderID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         PaymentMethod newPaymentMethod = paymentMethodRepo.createPaymentMethod(type, accountInformation, userID, orderID);
         System.out.println("Payment method created with ID: " + newPaymentMethod.paymentMethodID());
@@ -76,7 +76,7 @@ public class PaymentMethodUI {
     private static void updatePaymentMethod() {
         System.out.print("Enter payment method ID to update: ");
         Long paymentMethodID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         PaymentMethod existingPaymentMethod = paymentMethodRepo.getPaymentMethodByID(paymentMethodID);
         if (existingPaymentMethod != null) {
@@ -86,10 +86,10 @@ public class PaymentMethodUI {
             String accountInformation = scanner.nextLine();
             System.out.print("Enter new user ID: ");
             Long userID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
             System.out.print("Enter new order ID: ");
             Long orderID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             PaymentMethod updatedPaymentMethod = new PaymentMethod(paymentMethodID, type, accountInformation, userID, orderID);
             paymentMethodRepo.updatePaymentMethod(updatedPaymentMethod);
@@ -102,7 +102,7 @@ public class PaymentMethodUI {
     private static void deletePaymentMethod() {
         System.out.print("Enter payment method ID to delete: ");
         Long paymentMethodID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = paymentMethodRepo.deletePaymentMethod(paymentMethodID);
         if (deleted) {

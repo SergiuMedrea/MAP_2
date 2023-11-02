@@ -1,4 +1,6 @@
 package domain;
 
-public record Courier(Long courierID, String name, String phoneNumber, String vehicleType) {
+import java.util.List;
+
+public record Courier(User user, String vehicleType) {
 }
