@@ -1,5 +1,6 @@
 package ui;
 
+import domain.Address;
 import repo.inMemory.UserRepo;
 import domain.User;
 
@@ -20,7 +21,7 @@ public class UserUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -47,13 +48,11 @@ public class UserUI {
     private static void createUser() {
         System.out.print("Enter user name: ");
         String name = scanner.nextLine();
-        System.out.print("Enter address ID: ");
-        Long addressID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        Address address = AddressUI.createAddress();
         System.out.print("Enter phone number: ");
         String phoneNumber = scanner.nextLine();
 
-        User newUser = userRepo.createUser(name, addressID, phoneNumber);
+        User newUser = userRepo.createUser(name, address, phoneNumber);
         System.out.println("User created with ID: " + newUser.userID());
     }
 
@@ -61,26 +60,25 @@ public class UserUI {
         System.out.println("Users:");
         for (User user : userRepo.getAllUsers()) {
             System.out.println("ID: " + user.userID() + ", Name: " + user.name() +
-                    ", Address ID: " + user.addressID() + ", Phone Number: " + user.phoneNumber());
+                    ", Address: " + user.address()+ ", Phone Number: " + user.phoneNumber());
         }
     }
 
     private static void updateUser() {
         System.out.print("Enter user ID to update: ");
         Long userID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         User existingUser = userRepo.getUserByID(userID);
         if (existingUser != null) {
             System.out.print("Enter new user name: ");
             String name = scanner.nextLine();
-            System.out.print("Enter new address ID: ");
-            Long addressID = scanner.nextLong();
-            scanner.nextLine(); // Consume newline
+            System.out.print("Enter new address\n");
+            Address address = AddressUI.createAddress();
             System.out.print("Enter new phone number: ");
             String phoneNumber = scanner.nextLine();
 
-            User updatedUser = new User(userID, name, addressID, phoneNumber);
+            User updatedUser = new User(userID, name, address, phoneNumber);
             userRepo.updateUser(updatedUser);
             System.out.println("User updated successfully.");
         } else {
@@ -91,7 +89,7 @@ public class UserUI {
     private static void deleteUser() {
         System.out.print("Enter user ID to delete: ");
         Long userID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = userRepo.deleteUser(userID);
         if (deleted) {

@@ -1,5 +1,6 @@
 package repo.inMemory;
 
+import domain.Address;
 import domain.User;
 
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ public class UserRepo {
     /**
      * Create a new user and add it to the repository
      */
-    public User createUser(String name, Long addressID, String phoneNumber) {
-        User newUser = new User(nextUserID, name, addressID, phoneNumber);
+    public User createUser(String name, Address address, String phoneNumber) {
+        User newUser = new User(nextUserID, name, address, phoneNumber);
         users.add(newUser);
         nextUserID++;
         return newUser;

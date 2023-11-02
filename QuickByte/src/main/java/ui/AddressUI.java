@@ -20,7 +20,7 @@ public class AddressUI {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -44,7 +44,7 @@ public class AddressUI {
         }
     }
 
-    private static void createAddress() {
+    public static Address createAddress() {
         System.out.print("Enter street: ");
         String street = scanner.nextLine();
         System.out.print("Enter postal code: ");
@@ -56,6 +56,7 @@ public class AddressUI {
 
         Address newAddress = addressRepo.createAddress(street, postalCode, city, country);
         System.out.println("Address created with ID: " + newAddress.addressID());
+        return newAddress;
     }
 
     private static void viewAddresses() {
@@ -72,7 +73,7 @@ public class AddressUI {
     private static void updateAddress() {
         System.out.print("Enter address ID to update: ");
         Long addressID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         Address existingAddress = addressRepo.getAddressByID(addressID);
         if (existingAddress != null) {
@@ -96,7 +97,7 @@ public class AddressUI {
     private static void deleteAddress() {
         System.out.print("Enter address ID to delete: ");
         Long addressID = scanner.nextLong();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
 
         boolean deleted = addressRepo.deleteAddress(addressID);
         if (deleted) {
