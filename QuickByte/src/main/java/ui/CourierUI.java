@@ -49,7 +49,7 @@ public class CourierUI {
     private static void createCourier() {
         System.out.print("Enter courier info\n");
         User user = UserUI.createUser();
-        System.out.print("Enter courier vehicle type: ");
+        System.out.print("Enter courier vehicle paymentType: ");
         String vehicleType = scanner.nextLine();
 
         Courier newCourier = courierRepo.createCourier(user, vehicleType);
@@ -76,7 +76,7 @@ public class CourierUI {
         if (existingCourier != null) {
             System.out.print("Enter new courier info\n");
             User user = UserUI.updateUser();
-            System.out.print("Enter new courier vehicle type: ");
+            System.out.print("Enter new courier vehicle paymentType: ");
             String vehicleType = scanner.nextLine();
 
             Courier updatedCourier = new Courier(user, vehicleType);

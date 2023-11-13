@@ -1,6 +1,6 @@
 package ui;
 
-import domain.PaymentMethod;
+import domain.Receipt;
 import repo.inMemory.PaymentMethodRepo;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class PaymentMethodUI {
     }
 
     private static void createPaymentMethod() {
-        System.out.print("Enter payment method type: ");
+        System.out.print("Enter payment method paymentType: ");
         String type = scanner.nextLine();
         System.out.print("Enter account information: ");
         String accountInformation = scanner.nextLine();
@@ -57,19 +57,19 @@ public class PaymentMethodUI {
         Long orderID = scanner.nextLong();
         scanner.nextLine();
 
-        PaymentMethod newPaymentMethod = paymentMethodRepo.createPaymentMethod(type, accountInformation, userID, orderID);
-        System.out.println("Payment method created with ID: " + newPaymentMethod.paymentMethodID());
+        Receipt newReceipt = paymentMethodRepo.createPaymentMethod(type, accountInformation, userID, orderID);
+        System.out.println("Payment method created with ID: " + newReceipt.receiptId());
     }
 
     private static void viewPaymentMethods() {
         System.out.println("Payment Methods:");
-        List<PaymentMethod> paymentMethods = paymentMethodRepo.getAllPaymentMethods();
-        for (PaymentMethod paymentMethod : paymentMethods) {
-            System.out.println("ID: " + paymentMethod.paymentMethodID() +
-                    ", Type: " + paymentMethod.type() +
-                    ", Account Information: " + paymentMethod.accountInformation() +
-                    ", User ID: " + paymentMethod.userID() +
-                    ", Order ID: " + paymentMethod.orderID());
+        List<Receipt> receipts = paymentMethodRepo.getAllPaymentMethods();
+        for (Receipt receipt : receipts) {
+            System.out.println("ID: " + receipt.receiptId() +
+                    ", Type: " + receipt.paymentType() +
+                    ", Account Information: " + receipt.accountInformation() +
+                    ", User ID: " + receipt.userID() +
+                    ", Order ID: " + receipt.orderID());
         }
     }
 
@@ -78,9 +78,9 @@ public class PaymentMethodUI {
         Long paymentMethodID = scanner.nextLong();
         scanner.nextLine();
 
-        PaymentMethod existingPaymentMethod = paymentMethodRepo.getPaymentMethodByID(paymentMethodID);
-        if (existingPaymentMethod != null) {
-            System.out.print("Enter new payment method type: ");
+        Receipt existingReceipt = paymentMethodRepo.getPaymentMethodByID(paymentMethodID);
+        if (existingReceipt != null) {
+            System.out.print("Enter new payment method paymentType: ");
             String type = scanner.nextLine();
             System.out.print("Enter new account information: ");
             String accountInformation = scanner.nextLine();
@@ -91,8 +91,8 @@ public class PaymentMethodUI {
             Long orderID = scanner.nextLong();
             scanner.nextLine();
 
-            PaymentMethod updatedPaymentMethod = new PaymentMethod(paymentMethodID, type, accountInformation, userID, orderID);
-            paymentMethodRepo.updatePaymentMethod(updatedPaymentMethod);
+            Receipt updatedReceipt = new Receipt(paymentMethodID, type, accountInformation, userID, orderID);
+            paymentMethodRepo.updatePaymentMethod(updatedReceipt);
             System.out.println("Payment method updated successfully.");
         } else {
             System.out.println("Payment method not found.");

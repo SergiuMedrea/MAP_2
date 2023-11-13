@@ -2,5 +2,6 @@ package domain;
 
 import java.util.List;
 
-public record Courier(User user, String vehicleType) {
+public record Courier(User user,
+                      String vehicleType) {
 }

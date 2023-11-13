@@ -1,4 +1,6 @@
 package domain;
 
-public record Restaurant(Long restaurantID, String name, Address address) {
+public record Restaurant(int restaurantID,
+                         int addressID,
+                         String name) {
 }

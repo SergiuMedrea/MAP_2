@@ -1,38 +1,38 @@
 package repo.inMemory;
 
-import domain.PaymentMethod;
+import domain.Receipt;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentMethodRepo {
-    private final List<PaymentMethod> paymentMethods = new ArrayList<>();
+    private final List<Receipt> receipts = new ArrayList<>();
     private long nextPaymentMethodID = 1;
 
-    public PaymentMethod createPaymentMethod(String type, String accountInformation, Long userID, Long orderID) {
-        PaymentMethod newPaymentMethod = new PaymentMethod(nextPaymentMethodID, type, accountInformation, userID, orderID);
-        paymentMethods.add(newPaymentMethod);
+    public Receipt createPaymentMethod(String type, String accountInformation, Long userID, Long orderID) {
+        Receipt newReceipt = new Receipt(nextPaymentMethodID, type, accountInformation, userID, orderID);
+        receipts.add(newReceipt);
         nextPaymentMethodID++;
-        return newPaymentMethod;
+        return newReceipt;
     }
 
-    public PaymentMethod getPaymentMethodByID(Long paymentMethodID) {
-        return paymentMethods.stream()
-                .filter(paymentMethod -> paymentMethod.paymentMethodID().equals(paymentMethodID))
+    public Receipt getPaymentMethodByID(Long paymentMethodID) {
+        return receipts.stream()
+                .filter(receipt -> receipt.receiptId().equals(paymentMethodID))
                 .findFirst()
                 .orElse(null);
     }
 
-    public List<PaymentMethod> getAllPaymentMethods() {
-        return new ArrayList<>(paymentMethods);
+    public List<Receipt> getAllPaymentMethods() {
+        return new ArrayList<>(receipts);
     }
 
-    public PaymentMethod updatePaymentMethod(PaymentMethod updatedPaymentMethod) {
-        for (int i = 0; i < paymentMethods.size(); i++) {
-            PaymentMethod paymentMethod = paymentMethods.get(i);
-            if (paymentMethod.paymentMethodID().equals(updatedPaymentMethod.paymentMethodID())) {
-                paymentMethods.set(i, updatedPaymentMethod);
-                return updatedPaymentMethod;
+    public Receipt updatePaymentMethod(Receipt updatedReceipt) {
+        for (int i = 0; i < receipts.size(); i++) {
+            Receipt receipt = receipts.get(i);
+            if (receipt.receiptId().equals(updatedReceipt.receiptId())) {
+                receipts.set(i, updatedReceipt);
+                return updatedReceipt;
             }
         }
 
@@ -40,6 +40,6 @@ public class PaymentMethodRepo {
     }
 
     public boolean deletePaymentMethod(Long paymentMethodID) {
-        return paymentMethods.removeIf(paymentMethod -> paymentMethod.paymentMethodID().equals(paymentMethodID));
+        return receipts.removeIf(receipt -> receipt.receiptId().equals(paymentMethodID));
     }
 }

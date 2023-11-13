@@ -1,4 +1,8 @@
 package domain;
 
-public record User(Long userID, String name, Address address, String phoneNumber) {
+public record User(int userID,
+                   int addressID,
+                   String firstName,
+                   String lastName,
+                   String phoneNumber) {
 }

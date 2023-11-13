@@ -1,4 +1,8 @@
 package domain;
 
-public record Review(Long reviewID, int rating, String comment, Long userID, Long restaurantID) {
+public record Review(int reviewID,
+                     int userID,
+                     int restaurantID,
+                     int rating,
+                     String comment) {
 }

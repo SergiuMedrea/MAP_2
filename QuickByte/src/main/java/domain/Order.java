@@ -1,6 +1,10 @@
 package domain;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
-public record Order(Long orderID, Date date, Long userID, Long courierID, Long addressID) {
+public record Order(int orderID,
+                    int userID,
+                    int courierID,
+                    int addressID,
+                    Timestamp dateTime) {
 }

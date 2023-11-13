@@ -1,4 +1,7 @@
 package domain;
 
-public record OrderMenuItem(Long orderMenuItemID, Long orderID, Long menuItemID, int quantity) {
+public record OrderMenuItem(
+        int orderID,
+        int menuItemID,
+        int quantity) {
 }
