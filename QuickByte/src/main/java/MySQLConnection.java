@@ -1,6 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MySQLConnection {
     public static void main(String[] args) {
@@ -17,6 +15,12 @@ public class MySQLConnection {
             Connection connection = DriverManager.getConnection(url, user, password);
 
             // Do something with the connection (e.g., execute SQL queries)
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Users");
+
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("firstName"));
+            }
 
             // Close the connection
             connection.close();

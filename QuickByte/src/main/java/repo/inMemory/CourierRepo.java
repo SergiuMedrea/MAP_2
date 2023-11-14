@@ -24,7 +24,7 @@ public class CourierRepo {
     /**
      * Retrieve a courier by user | Optional.empty() if not found
      */
-    public Optional<Courier> getCourierByUser(User user) {
+    public Optional<Courier> getCourierById(int id) {
         return couriers.stream()
                 .filter(courier -> Objects.equals(user, courier.user()))
                 .findFirst();

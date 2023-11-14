@@ -34,7 +34,7 @@ public class DiscountRepo {
      */
     public Optional<Discount> getDiscountByPromotionID(int promotionID) {
         return discounts.stream()
-                .filter(discount -> Objects.equals(promotionID, discount.promotionID()))
+                .filter(discount -> Objects.equals(promotionID, discount.discountID()))
                 .findFirst();
     }
 
@@ -51,7 +51,7 @@ public class DiscountRepo {
     public boolean updateDiscount(Discount updatedDiscount) {
         for (int i = 0; i < discounts.size(); i++) {
             Discount existingDiscount = discounts.get(i);
-            if (Objects.equals(existingDiscount.promotionID(), updatedDiscount.promotionID())) {
+            if (Objects.equals(existingDiscount.discountID(), updatedDiscount.discountID())) {
                 discounts.set(i, updatedDiscount);
                 return true; // Update successful
             }
@@ -63,6 +63,6 @@ public class DiscountRepo {
      * Delete a discount by promotion ID
      */
     public boolean deleteDiscount(int promotionID) {
-        return discounts.removeIf(discount -> Objects.equals(promotionID, discount.promotionID()));
+        return discounts.removeIf(discount -> Objects.equals(promotionID, discount.discountID()));
     }
 }

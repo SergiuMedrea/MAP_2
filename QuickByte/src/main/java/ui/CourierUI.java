@@ -61,7 +61,7 @@ public class CourierUI {
         List<Courier> couriers = courierRepo.getAllCouriers();
         for (Courier courier : couriers) {
             System.out.println("ID: " + courier.user().userID() +
-                    ", Name: " + courier.user().name() +
+                    ", Name: " + courier.user().firstName() +
                     ", Phone Number: " + courier.user().phoneNumber() +
                     ", Vehicle Type: " + courier.vehicleType());
         }

@@ -67,14 +67,14 @@ public class DiscountUI {
         scanner.nextLine();
 
         Discount newDiscount = DISCOUNT_REPO.createPromotion(name, description, startDate, endDate, discountPercentage, couponCode, restaurantID);
-        System.out.println("Promotion created with ID: " + newDiscount.promotionID());
+        System.out.println("Promotion created with ID: " + newDiscount.discountID());
     }
 
     private static void viewPromotions() {
         System.out.println("Promotions:");
         List<Discount> discounts = DISCOUNT_REPO.getAllPromotions();
         for (Discount discount : discounts) {
-            System.out.println("ID: " + discount.promotionID() +
+            System.out.println("ID: " + discount.discountID() +
                     ", Name: " + discount.name() +
                     ", Description: " + discount.description() +
                     ", Start Date: " + discount.startDate() +
