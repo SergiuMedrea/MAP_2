@@ -67,7 +67,7 @@ create table Orders
     foreign key (addressID) references Addresses (addressID)
 );
 
-create table Promotions
+create table Discounts
 (
     promotionID        int primary key AUTO_INCREMENT,
     restaurantID       int,
