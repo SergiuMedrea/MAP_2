@@ -4,42 +4,57 @@ import domain.Review;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class ReviewRepo {
     private final List<Review> reviews = new ArrayList<>();
-    private long nextReviewID = 1;
+    private int nextReviewID = 1;
 
-    public Review createReview(int rating, String comment, Long userID, Long restaurantID) {
-        Review newReview = new Review(nextReviewID, rating, comment, userID, restaurantID);
+    /**
+     * Create a new review and add it to the repository
+     */
+    public Review createReview(int userID, int restaurantID, int rating, String comment) {
+        Review newReview = new Review(nextReviewID, userID, restaurantID, rating, comment);
         reviews.add(newReview);
         nextReviewID++;
         return newReview;
     }
 
-    public Review getReviewByID(Long reviewID) {
+    /**
+     * Retrieve a review by ID | Optional.empty() if not found
+     */
+    public Optional<Review> getReviewByID(int reviewID) {
         return reviews.stream()
-                .filter(review -> review.reviewID().equals(reviewID))
-                .findFirst()
-                .orElse(null);
+                .filter(review -> Objects.equals(reviewID, review.reviewID()))
+                .findFirst();
     }
 
+    /**
+     * Retrieve all reviews
+     */
     public List<Review> getAllReviews() {
         return new ArrayList<>(reviews);
     }
 
-    public Review updateReview(Review updatedReview) {
+    /**
+     * Update an existing review
+     */
+    public boolean updateReview(Review updatedReview) {
         for (int i = 0; i < reviews.size(); i++) {
-            Review review = reviews.get(i);
-            if (review.reviewID().equals(updatedReview.reviewID())) {
+            Review existingReview = reviews.get(i);
+            if (Objects.equals(existingReview.reviewID(), updatedReview.reviewID())) {
                 reviews.set(i, updatedReview);
-                return updatedReview;
+                return true; // Update successful
             }
         }
-
-        return null;
+        return false; // Review not found
     }
 
-    public boolean deleteReview(Long reviewID) {
-        return reviews.removeIf(review -> review.reviewID().equals(reviewID));
+    /**
+     * Delete a review by ID
+     */
+    public boolean deleteReview(int reviewID) {
+        return reviews.removeIf(review -> Objects.equals(reviewID, review.reviewID()));
     }
 }

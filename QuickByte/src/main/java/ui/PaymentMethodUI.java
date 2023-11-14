@@ -1,13 +1,13 @@
 package ui;
 
 import domain.Receipt;
-import repo.inMemory.PaymentMethodRepo;
+import repo.inMemory.ReceiptRepo;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class PaymentMethodUI {
-    private static final PaymentMethodRepo paymentMethodRepo = new PaymentMethodRepo();
+    private static final ReceiptRepo RECEIPT_REPO = new ReceiptRepo();
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void run() {
@@ -57,13 +57,13 @@ public class PaymentMethodUI {
         Long orderID = scanner.nextLong();
         scanner.nextLine();
 
-        Receipt newReceipt = paymentMethodRepo.createPaymentMethod(type, accountInformation, userID, orderID);
+        Receipt newReceipt = RECEIPT_REPO.createPaymentMethod(type, accountInformation, userID, orderID);
         System.out.println("Payment method created with ID: " + newReceipt.receiptId());
     }
 
     private static void viewPaymentMethods() {
         System.out.println("Payment Methods:");
-        List<Receipt> receipts = paymentMethodRepo.getAllPaymentMethods();
+        List<Receipt> receipts = RECEIPT_REPO.getAllPaymentMethods();
         for (Receipt receipt : receipts) {
             System.out.println("ID: " + receipt.receiptId() +
                     ", Type: " + receipt.paymentType() +
@@ -78,7 +78,7 @@ public class PaymentMethodUI {
         Long paymentMethodID = scanner.nextLong();
         scanner.nextLine();
 
-        Receipt existingReceipt = paymentMethodRepo.getPaymentMethodByID(paymentMethodID);
+        Receipt existingReceipt = RECEIPT_REPO.getPaymentMethodByID(paymentMethodID);
         if (existingReceipt != null) {
             System.out.print("Enter new payment method paymentType: ");
             String type = scanner.nextLine();
@@ -92,7 +92,7 @@ public class PaymentMethodUI {
             scanner.nextLine();
 
             Receipt updatedReceipt = new Receipt(paymentMethodID, type, accountInformation, userID, orderID);
-            paymentMethodRepo.updatePaymentMethod(updatedReceipt);
+            RECEIPT_REPO.updatePaymentMethod(updatedReceipt);
             System.out.println("Payment method updated successfully.");
         } else {
             System.out.println("Payment method not found.");
@@ -104,7 +104,7 @@ public class PaymentMethodUI {
         Long paymentMethodID = scanner.nextLong();
         scanner.nextLine();
 
-        boolean deleted = paymentMethodRepo.deletePaymentMethod(paymentMethodID);
+        boolean deleted = RECEIPT_REPO.deletePaymentMethod(paymentMethodID);
         if (deleted) {
             System.out.println("Payment method deleted successfully.");
         } else {

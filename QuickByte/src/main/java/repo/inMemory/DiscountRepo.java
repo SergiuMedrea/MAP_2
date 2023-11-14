@@ -2,45 +2,67 @@ package repo.inMemory;
 
 import domain.Discount;
 
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class DiscountRepo {
     private final List<Discount> discounts = new ArrayList<>();
-    private long nextPromotionID = 1;
+    private int nextPromotionID = 1;
 
-    public Discount createPromotion(String name, String description, Date startDate, Date endDate, int discountPercentage, String couponCode, Long restaurantID) {
-        Discount newDiscount = new Discount(nextPromotionID, name, description, startDate, endDate, discountPercentage, couponCode, restaurantID);
+    /**
+     * Create a new discount and add it to the repository
+     */
+    public Discount createDiscount(
+            int restaurantID,
+            String name,
+            String description,
+            Date startDate,
+            Date endDate,
+            int discountPercentage
+    ) {
+        Discount newDiscount = new Discount(nextPromotionID, restaurantID, name, description, startDate, endDate, discountPercentage);
         discounts.add(newDiscount);
         nextPromotionID++;
         return newDiscount;
     }
 
-    public Discount getPromotionByID(Long promotionID) {
+    /**
+     * Retrieve a discount by promotion ID | Optional.empty() if not found
+     */
+    public Optional<Discount> getDiscountByPromotionID(int promotionID) {
         return discounts.stream()
-                .filter(discount -> discount.promotionID().equals(promotionID))
-                .findFirst()
-                .orElse(null);
+                .filter(discount -> Objects.equals(promotionID, discount.promotionID()))
+                .findFirst();
     }
 
-    public List<Discount> getAllPromotions() {
+    /**
+     * Retrieve all discounts
+     */
+    public List<Discount> getAllDiscounts() {
         return new ArrayList<>(discounts);
     }
 
-    public Discount updatePromotion(Discount updatedDiscount) {
+    /**
+     * Update an existing discount
+     */
+    public boolean updateDiscount(Discount updatedDiscount) {
         for (int i = 0; i < discounts.size(); i++) {
-            Discount discount = discounts.get(i);
-            if (discount.promotionID().equals(updatedDiscount.promotionID())) {
+            Discount existingDiscount = discounts.get(i);
+            if (Objects.equals(existingDiscount.promotionID(), updatedDiscount.promotionID())) {
                 discounts.set(i, updatedDiscount);
-                return updatedDiscount;
+                return true; // Update successful
             }
         }
-
-        return null;
+        return false; // Discount not found
     }
 
-    public boolean deletePromotion(Long promotionID) {
-        return discounts.removeIf(discount -> discount.promotionID().equals(promotionID));
+    /**
+     * Delete a discount by promotion ID
+     */
+    public boolean deleteDiscount(int promotionID) {
+        return discounts.removeIf(discount -> Objects.equals(promotionID, discount.promotionID()));
     }
 }

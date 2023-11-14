@@ -1,58 +1,60 @@
 package repo.inMemory;
 
-import domain.Address;
 import domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class UserRepo {
     private final List<User> users = new ArrayList<>();
-    private long nextUserID = 1;
+    private int nextUserID = 1;
 
     /**
      * Create a new user and add it to the repository
      */
-    public User createUser(String name, Address address, String phoneNumber) {
-        User newUser = new User(nextUserID, name, address, phoneNumber);
+    public User createUser(int addressID, String firstName, String lastName, String phoneNumber) {
+        User newUser = new User(nextUserID, addressID, firstName, lastName, phoneNumber);
         users.add(newUser);
         nextUserID++;
         return newUser;
     }
 
     /**
-     * Retrieve a user by ID | NULL if not found
+     * Retrieve a user by ID | Optional.empty() if not found
      */
-    public User getUserByID(Long userID) {
+    public Optional<User> getUserByID(int userID) {
         return users.stream()
-                .filter(user -> user.userID().equals(userID))
-                .findFirst()
-                .orElse(null);
+                .filter(user -> Objects.equals(userID, user.userID()))
+                .findFirst();
     }
 
+    /**
+     * Retrieve all users
+     */
     public List<User> getAllUsers() {
         return new ArrayList<>(users);
     }
 
     /**
-     * Update an existing user and return the updated user
+     * Update an existing user
      */
-    public User updateUser(User updatedUser) {
+    public boolean updateUser(User updatedUser) {
         for (int i = 0; i < users.size(); i++) {
-            User user = users.get(i);
-            if (user.userID().equals(updatedUser.userID())) {
+            User existingUser = users.get(i);
+            if (Objects.equals(existingUser.userID(), updatedUser.userID())) {
                 users.set(i, updatedUser);
-                return updatedUser;
+                return true; // Update successful
             }
         }
-
-        return null; // User not found
+        return false; // User not found
     }
 
     /**
      * Delete a user by ID
      */
-    public boolean deleteUser(Long userID) {
-        return users.removeIf(user -> user.userID().equals(userID));
+    public boolean deleteUser(int userID) {
+        return users.removeIf(user -> Objects.equals(userID, user.userID()));
     }
 }

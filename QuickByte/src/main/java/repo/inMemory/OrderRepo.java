@@ -2,45 +2,60 @@ package repo.inMemory;
 
 import domain.Order;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class OrderRepo {
     private final List<Order> orders = new ArrayList<>();
-    private long nextOrderID = 1;
+    private int nextOrderID = 1;
 
-    public Order createOrder(Date date, Long userID, Long courierID, Long addressID) {
-        Order newOrder = new Order(nextOrderID, date, userID, courierID, addressID);
+    /**
+     * Create a new order and add it to the repository
+     */
+    public Order createOrder(int userID, int courierID, int addressID, Timestamp dateTime) {
+        Order newOrder = new Order(nextOrderID, userID, courierID, addressID, dateTime);
         orders.add(newOrder);
         nextOrderID++;
         return newOrder;
     }
 
-    public Order getOrderByID(Long orderID) {
+    /**
+     * Retrieve an order by ID | Optional.empty() if not found
+     */
+    public Optional<Order> getOrderByID(int orderID) {
         return orders.stream()
-                .filter(order -> order.orderID().equals(orderID))
-                .findFirst()
-                .orElse(null);
+                .filter(order -> Objects.equals(orderID, order.orderID()))
+                .findFirst();
     }
 
+    /**
+     * Retrieve all orders
+     */
     public List<Order> getAllOrders() {
         return new ArrayList<>(orders);
     }
 
-    public Order updateOrder(Order updatedOrder) {
+    /**
+     * Update an existing order
+     */
+    public boolean updateOrder(Order updatedOrder) {
         for (int i = 0; i < orders.size(); i++) {
-            Order order = orders.get(i);
-            if (order.orderID().equals(updatedOrder.orderID())) {
+            Order existingOrder = orders.get(i);
+            if (Objects.equals(existingOrder.orderID(), updatedOrder.orderID())) {
                 orders.set(i, updatedOrder);
-                return updatedOrder;
+                return true; // Update successful
             }
         }
-
-        return null;
+        return false; // Order not found
     }
 
-    public boolean deleteOrder(Long orderID) {
-        return orders.removeIf(order -> order.orderID().equals(orderID));
+    /**
+     * Delete an order by ID
+     */
+    public boolean deleteOrder(int orderID) {
+        return orders.removeIf(order -> Objects.equals(orderID, order.orderID()));
     }
 }

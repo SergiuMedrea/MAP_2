@@ -1,46 +1,60 @@
 package repo.inMemory;
 
-import domain.Address;
 import domain.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class RestaurantRepo {
     private final List<Restaurant> restaurants = new ArrayList<>();
-    private long nextRestaurantID = 1;
+    private int nextRestaurantID = 1;
 
-    public Restaurant createRestaurant(String name, Address address) {
-        Restaurant newRestaurant = new Restaurant(nextRestaurantID, name, address);
+    /**
+     * Create a new restaurant and add it to the repository
+     */
+    public Restaurant createRestaurant(int addressID, String name) {
+        Restaurant newRestaurant = new Restaurant(nextRestaurantID, addressID, name);
         restaurants.add(newRestaurant);
         nextRestaurantID++;
         return newRestaurant;
     }
 
-    public Restaurant getRestaurantByID(Long restaurantID) {
+    /**
+     * Retrieve a restaurant by ID | Optional.empty() if not found
+     */
+    public Optional<Restaurant> getRestaurantByID(int restaurantID) {
         return restaurants.stream()
-                .filter(restaurant -> restaurant.restaurantID().equals(restaurantID))
-                .findFirst()
-                .orElse(null);
+                .filter(restaurant -> Objects.equals(restaurantID, restaurant.restaurantID()))
+                .findFirst();
     }
 
+    /**
+     * Retrieve all restaurants
+     */
     public List<Restaurant> getAllRestaurants() {
         return new ArrayList<>(restaurants);
     }
 
-    public Restaurant updateRestaurant(Restaurant updatedRestaurant) {
+    /**
+     * Update an existing restaurant
+     */
+    public boolean updateRestaurant(Restaurant updatedRestaurant) {
         for (int i = 0; i < restaurants.size(); i++) {
-            Restaurant restaurant = restaurants.get(i);
-            if (restaurant.restaurantID().equals(updatedRestaurant.restaurantID())) {
+            Restaurant existingRestaurant = restaurants.get(i);
+            if (Objects.equals(existingRestaurant.restaurantID(), updatedRestaurant.restaurantID())) {
                 restaurants.set(i, updatedRestaurant);
-                return updatedRestaurant;
+                return true; // Update successful
             }
         }
-
-        return null;
+        return false; // Restaurant not found
     }
 
-    public boolean deleteRestaurant(Long restaurantID) {
-        return restaurants.removeIf(restaurant -> restaurant.restaurantID().equals(restaurantID));
+    /**
+     * Delete a restaurant by ID
+     */
+    public boolean deleteRestaurant(int restaurantID) {
+        return restaurants.removeIf(restaurant -> Objects.equals(restaurantID, restaurant.restaurantID()));
     }
 }

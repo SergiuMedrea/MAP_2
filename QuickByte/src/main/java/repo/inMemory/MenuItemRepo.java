@@ -4,42 +4,57 @@ import domain.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class MenuItemRepo {
     private final List<MenuItem> menuItems = new ArrayList<>();
-    private long nextMenuItemID = 1;
+    private int nextMenuItemID = 1;
 
-    public MenuItem createMenuItem(String name, int price, String description, String category, Long restaurantID) {
-        MenuItem newMenuItem = new MenuItem(nextMenuItemID, name, price, description, category, restaurantID);
+    /**
+     * Create a new menu item and add it to the repository
+     */
+    public MenuItem createMenuItem(int categoryID, int restaurantID, String name, int price, String description) {
+        MenuItem newMenuItem = new MenuItem(nextMenuItemID, categoryID, restaurantID, name, price, description);
         menuItems.add(newMenuItem);
         nextMenuItemID++;
         return newMenuItem;
     }
 
-    public MenuItem getMenuItemByID(Long menuItemID) {
+    /**
+     * Retrieve a menu item by ID | Optional.empty() if not found
+     */
+    public Optional<MenuItem> getMenuItemByID(int menuItemID) {
         return menuItems.stream()
-                .filter(item -> item.menuItemID().equals(menuItemID))
-                .findFirst()
-                .orElse(null);
+                .filter(menuItem -> Objects.equals(menuItemID, menuItem.menuItemID()))
+                .findFirst();
     }
 
+    /**
+     * Retrieve all menu items
+     */
     public List<MenuItem> getAllMenuItems() {
         return new ArrayList<>(menuItems);
     }
 
-    public MenuItem updateMenuItem(MenuItem updatedMenuItem) {
+    /**
+     * Update an existing menu item
+     */
+    public boolean updateMenuItem(MenuItem updatedMenuItem) {
         for (int i = 0; i < menuItems.size(); i++) {
-            MenuItem menuItem = menuItems.get(i);
-            if (menuItem.menuItemID().equals(updatedMenuItem.menuItemID())) {
+            MenuItem existingMenuItem = menuItems.get(i);
+            if (Objects.equals(existingMenuItem.menuItemID(), updatedMenuItem.menuItemID())) {
                 menuItems.set(i, updatedMenuItem);
-                return updatedMenuItem;
+                return true; // Update successful
             }
         }
-
-        return null;
+        return false; // Menu item not found
     }
 
-    public boolean deleteMenuItem(Long menuItemID) {
-        return menuItems.removeIf(item -> item.menuItemID().equals(menuItemID));
+    /**
+     * Delete a menu item by ID
+     */
+    public boolean deleteMenuItem(int menuItemID) {
+        return menuItems.removeIf(menuItem -> Objects.equals(menuItemID, menuItem.menuItemID()));
     }
 }
