@@ -47,56 +47,56 @@ public class CourierUI {
     }
 
     private static void createCourier() {
-        System.out.print("Enter courier info\n");
-        User user = UserUI.createUser();
-        System.out.print("Enter courier vehicle paymentType: ");
-        String vehicleType = scanner.nextLine();
-
-        Courier newCourier = courierRepo.createCourier(user, vehicleType);
-        System.out.println("Courier created with ID: " + newCourier.user().userID());
+//        System.out.print("Enter courier info\n");
+//        User user = UserUI.createUser();
+//        System.out.print("Enter courier vehicle paymentType: ");
+//        String vehicleType = scanner.nextLine();
+//
+//        Courier newCourier = courierRepo.createCourier(user, vehicleType);
+//        System.out.println("Courier created with ID: " + newCourier.user().userID());
     }
 
     private static void viewCouriers() {
-        System.out.println("Couriers:");
-        List<Courier> couriers = courierRepo.getAllCouriers();
-        for (Courier courier : couriers) {
-            System.out.println("ID: " + courier.user().userID() +
-                    ", Name: " + courier.user().firstName() +
-                    ", Phone Number: " + courier.user().phoneNumber() +
-                    ", Vehicle Type: " + courier.vehicleType());
-        }
+//        System.out.println("Couriers:");
+//        List<Courier> couriers = courierRepo.getAllCouriers();
+//        for (Courier courier : couriers) {
+//            System.out.println("ID: " + courier.user().userID() +
+//                    ", Name: " + courier.user().firstName() +
+//                    ", Phone Number: " + courier.user().phoneNumber() +
+//                    ", Vehicle Type: " + courier.vehicleType());
+//        }
     }
 
     private static void updateCourier() {
-        System.out.print("Enter courier ID to update: ");
-        Long courierID = scanner.nextLong();
-        scanner.nextLine();
-
-        Courier existingCourier = courierRepo.getCourierByID(courierID);
-        if (existingCourier != null) {
-            System.out.print("Enter new courier info\n");
-            User user = UserUI.updateUser();
-            System.out.print("Enter new courier vehicle paymentType: ");
-            String vehicleType = scanner.nextLine();
-
-            Courier updatedCourier = new Courier(user, vehicleType);
-            courierRepo.updateCourier(updatedCourier);
-            System.out.println("Courier updated successfully.");
-        } else {
-            System.out.println("Courier not found.");
-        }
+//        System.out.print("Enter courier ID to update: ");
+//        Long courierID = scanner.nextLong();
+//        scanner.nextLine();
+//
+//        Courier existingCourier = courierRepo.getCourierByID(courierID);
+//        if (existingCourier != null) {
+//            System.out.print("Enter new courier info\n");
+//            User user = UserUI.updateUser();
+//            System.out.print("Enter new courier vehicle paymentType: ");
+//            String vehicleType = scanner.nextLine();
+//
+//            Courier updatedCourier = new Courier(user, vehicleType);
+//            courierRepo.updateCourier(updatedCourier);
+//            System.out.println("Courier updated successfully.");
+//        } else {
+//            System.out.println("Courier not found.");
+//        }
     }
 
     private static void deleteCourier() {
-        System.out.print("Enter courier ID to delete: ");
-        Long courierID = scanner.nextLong();
-        scanner.nextLine();
-
-        boolean deleted = courierRepo.deleteCourier(courierID);
-        if (deleted) {
-            System.out.println("Courier deleted successfully.");
-        } else {
-            System.out.println("Courier not found.");
-        }
+//        System.out.print("Enter courier ID to delete: ");
+//        Long courierID = scanner.nextLong();
+//        scanner.nextLine();
+//
+//        boolean deleted = courierRepo.deleteCourier(courierID);
+//        if (deleted) {
+//            System.out.println("Courier deleted successfully.");
+//        } else {
+//            System.out.println("Courier not found.");
+//        }
     }
 }

@@ -1,8 +1,7 @@
 package ui;
 
-import domain.Address;
-import repo.inMemory.UserRepo;
 import domain.User;
+import repo.inMemory.UserRepo;
 
 import java.util.Scanner;
 
@@ -46,59 +45,61 @@ public class UserUI {
     }
 
     public static User createUser() {
-        System.out.print("Enter user name: ");
-        String name = scanner.nextLine();
-        Address address = AddressUI.createAddress();
-        System.out.print("Enter phone number: ");
-        String phoneNumber = scanner.nextLine();
-
-        User newUser = userRepo.createUser(name, address, phoneNumber);
-        System.out.println("User created with ID: " + newUser.userID());
-        return newUser;
+//        System.out.print("Enter user name: ");
+//        String name = scanner.nextLine();
+//        Address address = AddressUI.createAddress();
+//        System.out.print("Enter phone number: ");
+//        String phoneNumber = scanner.nextLine();
+//
+//        User newUser = userRepo.createUser(name, address, phoneNumber);
+//        System.out.println("User created with ID: " + newUser.userID());
+//        return newUser;
+        return null;
     }
 
     private static void viewUsers() {
-        System.out.println("Users:");
-        for (User user : userRepo.getAllUsers()) {
-            System.out.println("ID: " + user.userID() + ", Name: " + user.name() +
-                    ", Address: " + user.address()+ ", Phone Number: " + user.phoneNumber());
-        }
+//        System.out.println("Users:");
+//        for (User user : userRepo.getAllUsers()) {
+//            System.out.println("ID: " + user.userID() + ", Name: " + user.name() +
+//                    ", Address: " + user.address()+ ", Phone Number: " + user.phoneNumber());
+//        }
     }
 
     public static User updateUser() {
-        System.out.print("Enter user ID to update: ");
-        Long userID = scanner.nextLong();
-        scanner.nextLine();
-        User updatedUser = null;
-
-        User existingUser = userRepo.getUserByID(userID);
-        if (existingUser != null) {
-            System.out.print("Enter new user name: ");
-            String name = scanner.nextLine();
-            System.out.print("Enter new address\n");
-            Address address = AddressUI.updateAddress();
-            System.out.print("Enter new phone number: ");
-            String phoneNumber = scanner.nextLine();
-
-            updatedUser = new User(userID, name, address, phoneNumber);
-            userRepo.updateUser(updatedUser);
-            System.out.println("User updated successfully.");
-        } else {
-            System.out.println("User not found.");
-        }
-        return updatedUser;
+//        System.out.print("Enter user ID to update: ");
+//        Long userID = scanner.nextLong();
+//        scanner.nextLine();
+//        User updatedUser = null;
+//
+//        User existingUser = userRepo.getUserByID(userID);
+//        if (existingUser != null) {
+//            System.out.print("Enter new user name: ");
+//            String name = scanner.nextLine();
+//            System.out.print("Enter new address\n");
+//            Address address = AddressUI.updateAddress();
+//            System.out.print("Enter new phone number: ");
+//            String phoneNumber = scanner.nextLine();
+//
+//            updatedUser = new User(userID, name, address, phoneNumber);
+//            userRepo.updateUser(updatedUser);
+//            System.out.println("User updated successfully.");
+//        } else {
+//            System.out.println("User not found.");
+//        }
+//        return updatedUser;
+        return null;
     }
 
     private static void deleteUser() {
-        System.out.print("Enter user ID to delete: ");
-        Long userID = scanner.nextLong();
-        scanner.nextLine();
-
-        boolean deleted = userRepo.deleteUser(userID);
-        if (deleted) {
-            System.out.println("User deleted successfully.");
-        } else {
-            System.out.println("User not found.");
-        }
+//        System.out.print("Enter user ID to delete: ");
+//        Long userID = scanner.nextLong();
+//        scanner.nextLine();
+//
+//        boolean deleted = userRepo.deleteUser(userID);
+//        if (deleted) {
+//            System.out.println("User deleted successfully.");
+//        } else {
+//            System.out.println("User not found.");
+//        }
     }
 }

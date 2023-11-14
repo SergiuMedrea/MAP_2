@@ -47,55 +47,55 @@ public class RestaurantUI {
     }
 
     private static void createRestaurant() {
-        System.out.print("Enter restaurant name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter address\n");
-        Address address = AddressUI.createAddress();
-
-        Restaurant newRestaurant = restaurantRepo.createRestaurant(name, address);
-        System.out.println("Restaurant created with ID: " + newRestaurant.restaurantID());
+//        System.out.print("Enter restaurant name: ");
+//        String name = scanner.nextLine();
+//        System.out.print("Enter address\n");
+//        Address address = AddressUI.createAddress();
+//
+//        Restaurant newRestaurant = restaurantRepo.createRestaurant(name, address);
+//        System.out.println("Restaurant created with ID: " + newRestaurant.restaurantID());
     }
 
     private static void viewRestaurants() {
-        System.out.println("Restaurants:");
-        List<Restaurant> restaurants = restaurantRepo.getAllRestaurants();
-        for (Restaurant restaurant : restaurants) {
-            System.out.println("ID: " + restaurant.restaurantID() +
-                    ", Name: " + restaurant.name() +
-                    ", Address ID: " + restaurant.address());
-        }
+//        System.out.println("Restaurants:");
+//        List<Restaurant> restaurants = restaurantRepo.getAllRestaurants();
+//        for (Restaurant restaurant : restaurants) {
+//            System.out.println("ID: " + restaurant.restaurantID() +
+//                    ", Name: " + restaurant.name() +
+//                    ", Address ID: " + restaurant.address());
+//        }
     }
 
     private static void updateRestaurant() {
-        System.out.print("Enter restaurant ID to update: ");
-        Long restaurantID = scanner.nextLong();
-        scanner.nextLine();
-
-        Restaurant existingRestaurant = restaurantRepo.getRestaurantByID(restaurantID);
-        if (existingRestaurant != null) {
-            System.out.print("Enter new restaurant name: ");
-            String name = scanner.nextLine();
-            System.out.print("Enter new address info\n");
-            Address address = AddressUI.updateAddress();
-
-            Restaurant updatedRestaurant = new Restaurant(restaurantID, name, address);
-            restaurantRepo.updateRestaurant(updatedRestaurant);
-            System.out.println("Restaurant updated successfully.");
-        } else {
-            System.out.println("Restaurant not found.");
-        }
+//        System.out.print("Enter restaurant ID to update: ");
+//        Long restaurantID = scanner.nextLong();
+//        scanner.nextLine();
+//
+//        Restaurant existingRestaurant = restaurantRepo.getRestaurantByID(restaurantID);
+//        if (existingRestaurant != null) {
+//            System.out.print("Enter new restaurant name: ");
+//            String name = scanner.nextLine();
+//            System.out.print("Enter new address info\n");
+//            Address address = AddressUI.updateAddress();
+//
+//            Restaurant updatedRestaurant = new Restaurant(restaurantID, name, address);
+//            restaurantRepo.updateRestaurant(updatedRestaurant);
+//            System.out.println("Restaurant updated successfully.");
+//        } else {
+//            System.out.println("Restaurant not found.");
+//        }
     }
 
     private static void deleteRestaurant() {
-        System.out.print("Enter restaurant ID to delete: ");
-        Long restaurantID = scanner.nextLong();
-        scanner.nextLine();
-
-        boolean deleted = restaurantRepo.deleteRestaurant(restaurantID);
-        if (deleted) {
-            System.out.println("Restaurant deleted successfully.");
-        } else {
-            System.out.println("Restaurant not found.");
-        }
+//        System.out.print("Enter restaurant ID to delete: ");
+//        Long restaurantID = scanner.nextLong();
+//        scanner.nextLine();
+//
+//        boolean deleted = restaurantRepo.deleteRestaurant(restaurantID);
+//        if (deleted) {
+//            System.out.println("Restaurant deleted successfully.");
+//        } else {
+//            System.out.println("Restaurant not found.");
+//        }
     }
 }

@@ -69,7 +69,7 @@ create table Orders
 
 create table Discounts
 (
-    promotionID        int primary key AUTO_INCREMENT,
+    discountID         int primary key AUTO_INCREMENT,
     restaurantID       int,
     name               varchar(64),
     description        varchar(128),
@@ -102,11 +102,11 @@ create table Receipts
 
 create table Reviews
 (
-    reviewID int primary key AUTO_INCREMENT,
-    userID int,
+    reviewID     int primary key AUTO_INCREMENT,
+    userID       int,
     restaurantID int,
-    rating int,
-    comment varchar(128),
-    foreign key (userID) references Users(userID),
-    foreign key (restaurantID) references Restaurants(restaurantID)
+    rating       int,
+    comment      varchar(128),
+    foreign key (userID) references Users (userID),
+    foreign key (restaurantID) references Restaurants (restaurantID)
 );
