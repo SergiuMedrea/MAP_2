@@ -1,14 +1,14 @@
 package ui;
 
-import domain.Promotion;
-import repo.inMemory.PromotionRepo;
+import domain.Discount;
+import repo.inMemory.DiscountRepo;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class PromotionUI {
-    private static final PromotionRepo promotionRepo = new PromotionRepo();
+public class DiscountUI {
+    private static final DiscountRepo DISCOUNT_REPO = new DiscountRepo();
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void run() {
@@ -66,22 +66,22 @@ public class PromotionUI {
         Long restaurantID = scanner.nextLong();
         scanner.nextLine();
 
-        Promotion newPromotion = promotionRepo.createPromotion(name, description, startDate, endDate, discountPercentage, couponCode, restaurantID);
-        System.out.println("Promotion created with ID: " + newPromotion.promotionID());
+        Discount newDiscount = DISCOUNT_REPO.createPromotion(name, description, startDate, endDate, discountPercentage, couponCode, restaurantID);
+        System.out.println("Promotion created with ID: " + newDiscount.promotionID());
     }
 
     private static void viewPromotions() {
         System.out.println("Promotions:");
-        List<Promotion> promotions = promotionRepo.getAllPromotions();
-        for (Promotion promotion : promotions) {
-            System.out.println("ID: " + promotion.promotionID() +
-                    ", Name: " + promotion.name() +
-                    ", Description: " + promotion.description() +
-                    ", Start Date: " + promotion.startDate() +
-                    ", End Date: " + promotion.endDate() +
-                    ", Discount Percentage: " + promotion.discountPercentage() + "%" +
-                    ", Coupon Code: " + promotion.couponCode() +
-                    ", Restaurant ID: " + promotion.restaurantID());
+        List<Discount> discounts = DISCOUNT_REPO.getAllPromotions();
+        for (Discount discount : discounts) {
+            System.out.println("ID: " + discount.promotionID() +
+                    ", Name: " + discount.name() +
+                    ", Description: " + discount.description() +
+                    ", Start Date: " + discount.startDate() +
+                    ", End Date: " + discount.endDate() +
+                    ", Discount Percentage: " + discount.discountPercentage() + "%" +
+                    ", Coupon Code: " + discount.couponCode() +
+                    ", Restaurant ID: " + discount.restaurantID());
         }
     }
 
@@ -90,8 +90,8 @@ public class PromotionUI {
         Long promotionID = scanner.nextLong();
         scanner.nextLine();
 
-        Promotion existingPromotion = promotionRepo.getPromotionByID(promotionID);
-        if (existingPromotion != null) {
+        Discount existingDiscount = DISCOUNT_REPO.getPromotionByID(promotionID);
+        if (existingDiscount != null) {
             System.out.print("Enter new promotion name: ");
             String name = scanner.nextLine();
             System.out.print("Enter new promotion description: ");
@@ -111,8 +111,8 @@ public class PromotionUI {
             Long restaurantID = scanner.nextLong();
             scanner.nextLine();
 
-            Promotion updatedPromotion = new Promotion(promotionID, name, description, startDate, endDate, discountPercentage, couponCode, restaurantID);
-            promotionRepo.updatePromotion(updatedPromotion);
+            Discount updatedDiscount = new Discount(promotionID, name, description, startDate, endDate, discountPercentage, couponCode, restaurantID);
+            DISCOUNT_REPO.updatePromotion(updatedDiscount);
             System.out.println("Promotion updated successfully.");
         } else {
             System.out.println("Promotion not found.");
@@ -124,7 +124,7 @@ public class PromotionUI {
         Long promotionID = scanner.nextLong();
         scanner.nextLine();
 
-        boolean deleted = promotionRepo.deletePromotion(promotionID);
+        boolean deleted = DISCOUNT_REPO.deletePromotion(promotionID);
         if (deleted) {
             System.out.println("Promotion deleted successfully.");
         } else {

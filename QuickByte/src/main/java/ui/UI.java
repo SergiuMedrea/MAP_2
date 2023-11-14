@@ -55,7 +55,7 @@ public class UI {
                     PaymentMethodUI.run();
                     break;
                 case 7:
-                    PromotionUI.run();
+                    DiscountUI.run();
                     break;
                 case 8:
                     RestaurantUI.run();
