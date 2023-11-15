@@ -1,12 +1,15 @@
 package ui;
 
+import controller.UserController;
 import domain.User;
+import repo.inMemory.InMemoryRepo;
 import repo.inMemory.UserRepo;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class UserUI {
-    private static final UserRepo userRepo = new UserRepo();
+    private static final UserController userController = new UserController(new InMemoryRepo<>());
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void run() {
@@ -45,61 +48,69 @@ public class UserUI {
     }
 
     public static User createUser() {
-//        System.out.print("Enter user name: ");
-//        String name = scanner.nextLine();
-//        Address address = AddressUI.createAddress();
-//        System.out.print("Enter phone number: ");
-//        String phoneNumber = scanner.nextLine();
-//
-//        User newUser = userRepo.createUser(name, address, phoneNumber);
-//        System.out.println("User created with ID: " + newUser.userID());
-//        return newUser;
-        return null;
+        System.out.print("Enter first name: ");
+        String firstName = scanner.nextLine();
+        System.out.println("Enter last name: ");
+        String lastName = scanner.nextLine();
+        System.out.println("Enter address ID: ");
+        int addressID = scanner.nextInt();
+        System.out.print("Enter phone number: ");
+        String phoneNumber = scanner.nextLine();
+
+        User newUser = new User(0, addressID, firstName, lastName, phoneNumber);
+        User createdUser = userController.createEntity(newUser);
+
+        System.out.println("User created with ID: " + createdUser.getUserID());
+
+        return createdUser;
     }
 
     private static void viewUsers() {
-//        System.out.println("Users:");
-//        for (User user : userRepo.getAllUsers()) {
-//            System.out.println("ID: " + user.userID() + ", Name: " + user.name() +
-//                    ", Address: " + user.address()+ ", Phone Number: " + user.phoneNumber());
-//        }
+        System.out.println("Users:");
+        for (User user : userController.getAllEntities()) {
+            System.out.println("ID: " + user.getUserID() +
+                    ", Name: " + user.getFirstName() + " " + user.getLastName() +
+                    ", Address ID: " + user.getAddressID() +
+                    ", Phone Number: " + user.getPhoneNumber());
+        }
     }
 
     public static User updateUser() {
-//        System.out.print("Enter user ID to update: ");
-//        Long userID = scanner.nextLong();
-//        scanner.nextLine();
-//        User updatedUser = null;
-//
-//        User existingUser = userRepo.getUserByID(userID);
-//        if (existingUser != null) {
-//            System.out.print("Enter new user name: ");
-//            String name = scanner.nextLine();
-//            System.out.print("Enter new address\n");
-//            Address address = AddressUI.updateAddress();
-//            System.out.print("Enter new phone number: ");
-//            String phoneNumber = scanner.nextLine();
-//
-//            updatedUser = new User(userID, name, address, phoneNumber);
-//            userRepo.updateUser(updatedUser);
-//            System.out.println("User updated successfully.");
-//        } else {
-//            System.out.println("User not found.");
-//        }
-//        return updatedUser;
-        return null;
+        System.out.print("Enter user ID to update: ");
+        int userID = scanner.nextInt();
+        scanner.nextLine();
+        User updatedUser = null;
+
+        Optional<User> existingUser = userController.getEntityById(userID);
+        if (existingUser.isPresent()) {
+            System.out.print("Enter new first name: ");
+            String firstName = scanner.nextLine();
+            System.out.print("Enter new last name: ");
+            String lastName = scanner.nextLine();
+            System.out.print("Enter new address\n");
+            int addressID = scanner.nextInt();
+            System.out.print("Enter new phone number: ");
+            String phoneNumber = scanner.nextLine();
+
+            updatedUser = new User(userID, addressID, firstName, lastName, phoneNumber);
+            userController.updateEntity(updatedUser);
+            System.out.println("User updated successfully.");
+        } else {
+            System.out.println("User not found.");
+        }
+        return updatedUser;
     }
 
     private static void deleteUser() {
-//        System.out.print("Enter user ID to delete: ");
-//        Long userID = scanner.nextLong();
-//        scanner.nextLine();
-//
-//        boolean deleted = userRepo.deleteUser(userID);
-//        if (deleted) {
-//            System.out.println("User deleted successfully.");
-//        } else {
-//            System.out.println("User not found.");
-//        }
+        System.out.print("Enter user ID to delete: ");
+        int userID = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean deleted = userController.deleteEntity(userID);
+        if (deleted) {
+            System.out.println("User deleted successfully.");
+        } else {
+            System.out.println("User not found.");
+        }
     }
 }

@@ -1,14 +1,16 @@
 package ui;
 
+import controller.CourierController;
 import domain.Courier;
 import domain.User;
-import repo.inMemory.CourierRepo;
+import repo.inMemory.InMemoryRepo;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class CourierUI {
-    private static final CourierRepo courierRepo = new CourierRepo();
+    private static final CourierController courierController = new CourierController(new InMemoryRepo<>());
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void run() {
@@ -47,56 +49,57 @@ public class CourierUI {
     }
 
     private static void createCourier() {
-//        System.out.print("Enter courier info\n");
-//        User user = UserUI.createUser();
-//        System.out.print("Enter courier vehicle paymentType: ");
-//        String vehicleType = scanner.nextLine();
-//
-//        Courier newCourier = courierRepo.createCourier(user, vehicleType);
-//        System.out.println("Courier created with ID: " + newCourier.user().userID());
+        System.out.print("Enter courier info\n");
+        User user = UserUI.createUser();
+        System.out.print("Enter courier vehicle paymentType: ");
+        String vehicleType = scanner.nextLine();
+
+        Courier newCourier = new Courier(user.getUserID(), user.getAddressID(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(), vehicleType);
+        Courier createdCourier = courierController.createEntity(newCourier);
+        System.out.println("Courier created with ID: " + createdCourier.getUserID());
     }
 
     private static void viewCouriers() {
-//        System.out.println("Couriers:");
-//        List<Courier> couriers = courierRepo.getAllCouriers();
-//        for (Courier courier : couriers) {
-//            System.out.println("ID: " + courier.user().userID() +
-//                    ", Name: " + courier.user().firstName() +
-//                    ", Phone Number: " + courier.user().phoneNumber() +
-//                    ", Vehicle Type: " + courier.vehicleType());
-//        }
+        System.out.println("Couriers:");
+        List<Courier> couriers = courierController.getAllEntities();
+        for (Courier courier : couriers) {
+            System.out.println("ID: " + courier.getUserID() +
+                    ", Name: " + courier.getFirstName() + " " + courier.getLastName() +
+                    ", Phone Number: " + courier.getPhoneNumber() +
+                    ", Vehicle Type: " + courier.getVehicleType());
+        }
     }
 
     private static void updateCourier() {
-//        System.out.print("Enter courier ID to update: ");
-//        Long courierID = scanner.nextLong();
-//        scanner.nextLine();
-//
-//        Courier existingCourier = courierRepo.getCourierByID(courierID);
-//        if (existingCourier != null) {
-//            System.out.print("Enter new courier info\n");
-//            User user = UserUI.updateUser();
-//            System.out.print("Enter new courier vehicle paymentType: ");
-//            String vehicleType = scanner.nextLine();
-//
-//            Courier updatedCourier = new Courier(user, vehicleType);
-//            courierRepo.updateCourier(updatedCourier);
-//            System.out.println("Courier updated successfully.");
-//        } else {
-//            System.out.println("Courier not found.");
-//        }
+        System.out.print("Enter courier ID to update: ");
+        int courierID = scanner.nextInt();
+        scanner.nextLine();
+
+        Optional<Courier> existingCourier = courierController.getEntityById(courierID);
+        if (existingCourier.isPresent()) {
+            System.out.print("Enter new courier info\n");
+            User user = UserUI.updateUser();
+            System.out.print("Enter new courier vehicle paymentType: ");
+            String vehicleType = scanner.nextLine();
+
+            Courier updatedCourier = new Courier(user.getUserID(), user.getAddressID(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(), vehicleType);
+            courierController.updateEntity(updatedCourier);
+            System.out.println("Courier updated successfully.");
+        } else {
+            System.out.println("Courier not found.");
+        }
     }
 
     private static void deleteCourier() {
-//        System.out.print("Enter courier ID to delete: ");
-//        Long courierID = scanner.nextLong();
-//        scanner.nextLine();
-//
-//        boolean deleted = courierRepo.deleteCourier(courierID);
-//        if (deleted) {
-//            System.out.println("Courier deleted successfully.");
-//        } else {
-//            System.out.println("Courier not found.");
-//        }
+        System.out.print("Enter courier ID to delete: ");
+        int courierID = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean deleted = courierController.deleteEntity(courierID);
+        if (deleted) {
+            System.out.println("Courier deleted successfully.");
+        } else {
+            System.out.println("Courier not found.");
+        }
     }
 }

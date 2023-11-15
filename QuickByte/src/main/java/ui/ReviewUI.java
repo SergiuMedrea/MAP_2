@@ -1,11 +1,15 @@
 package ui;
 
-import repo.inMemory.ReviewRepo;
+import controller.ReviewController;
+import domain.Review;
+import repo.inMemory.InMemoryRepo;
 
+import java.util.Optional;
 import java.util.Scanner;
+import java.util.List;
 
 public class ReviewUI {
-    private static final ReviewRepo reviewRepo = new ReviewRepo();
+    private static final ReviewController reviewController = new ReviewController(new InMemoryRepo<>());
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void run() {
@@ -44,71 +48,72 @@ public class ReviewUI {
     }
 
     private static void createReview() {
-//        System.out.print("Enter rating (1-5): ");
-//        int rating = scanner.nextInt();
-//        scanner.nextLine();
-//        System.out.print("Enter comment: ");
-//        String comment = scanner.nextLine();
-//        System.out.print("Enter user ID: ");
-//        Long userID = scanner.nextLong();
-//        scanner.nextLine();
-//        System.out.print("Enter restaurant ID: ");
-//        Long restaurantID = scanner.nextLong();
-//        scanner.nextLine();
-//
-//        Review newReview = reviewRepo.createReview(rating, comment, userID, restaurantID);
-//        System.out.println("Review created with ID: " + newReview.reviewID());
+        System.out.print("Enter rating (1-5): ");
+        int rating = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter comment: ");
+        String comment = scanner.nextLine();
+        System.out.print("Enter user ID: ");
+        int userID = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter restaurant ID: ");
+        int restaurantID = scanner.nextInt();
+        scanner.nextLine();
+
+        Review newReview = new Review(0, userID, restaurantID, rating, comment);
+        Review createdReview = reviewController.createEntity(newReview);
+        System.out.println("Review created with ID: " + createdReview.getReviewID());
     }
 
     private static void viewReviews() {
-//        System.out.println("Reviews:");
-//        List<Review> reviews = reviewRepo.getAllReviews();
-//        for (Review review : reviews) {
-//            System.out.println("ID: " + review.reviewID() +
-//                    ", Rating: " + review.rating() +
-//                    ", Comment: " + review.comment() +
-//                    ", User ID: " + review.userID() +
-//                    ", Restaurant ID: " + review.restaurantID());
-//        }
+        System.out.println("Reviews:");
+        List<Review> reviews = reviewController.getAllEntities();
+        for (Review review : reviews) {
+            System.out.println("ID: " + review.getReviewID() +
+                    ", Rating: " + review.getRating() +
+                    ", Comment: " + review.getComment() +
+                    ", User ID: " + review.getUserID() +
+                    ", Restaurant ID: " + review.getRestaurantID());
+        }
     }
 
     private static void updateReview() {
-//        System.out.print("Enter review ID to update: ");
-//        Long reviewID = scanner.nextLong();
-//        scanner.nextLine();
-//
-//        Review existingReview = reviewRepo.getReviewByID(reviewID);
-//        if (existingReview != null) {
-//            System.out.print("Enter new rating (1-5): ");
-//            int rating = scanner.nextInt();
-//            scanner.nextLine();
-//            System.out.print("Enter new comment: ");
-//            String comment = scanner.nextLine();
-//            System.out.print("Enter new user ID: ");
-//            Long userID = scanner.nextLong();
-//            scanner.nextLine();
-//            System.out.print("Enter new restaurant ID: ");
-//            Long restaurantID = scanner.nextLong();
-//            scanner.nextLine();
-//
-//            Review updatedReview = new Review(reviewID, rating, comment, userID, restaurantID);
-//            reviewRepo.updateReview(updatedReview);
-//            System.out.println("Review updated successfully.");
-//        } else {
-//            System.out.println("Review not found.");
-//        }
+        System.out.print("Enter review ID to update: ");
+        int reviewID = scanner.nextInt();
+        scanner.nextLine();
+
+        Optional<Review> existingReview = reviewController.getEntityById(reviewID);
+        if (existingReview.isPresent()) {
+            System.out.print("Enter new rating (1-5): ");
+            int rating = scanner.nextInt();
+            scanner.nextLine();
+            System.out.print("Enter new comment: ");
+            String comment = scanner.nextLine();
+            System.out.print("Enter new user ID: ");
+            int userID = scanner.nextInt();
+            scanner.nextLine();
+            System.out.print("Enter new restaurant ID: ");
+            int restaurantID = scanner.nextInt();
+            scanner.nextLine();
+
+            Review updatedReview = new Review(reviewID, userID, restaurantID, rating, comment);
+            reviewController.updateEntity(updatedReview);
+            System.out.println("Review updated successfully.");
+        } else {
+            System.out.println("Review not found.");
+        }
     }
 
     private static void deleteReview() {
-//        System.out.print("Enter review ID to delete: ");
-//        Long reviewID = scanner.nextLong();
-//        scanner.nextLine();
-//
-//        boolean deleted = reviewRepo.deleteReview(reviewID);
-//        if (deleted) {
-//            System.out.println("Review deleted successfully.");
-//        } else {
-//            System.out.println("Review not found.");
-//        }
+        System.out.print("Enter review ID to delete: ");
+        int reviewID = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean deleted = reviewController.deleteEntity(reviewID);
+        if (deleted) {
+            System.out.println("Review deleted successfully.");
+        } else {
+            System.out.println("Review not found.");
+        }
     }
 }

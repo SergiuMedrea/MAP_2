@@ -1,14 +1,15 @@
 package ui;
 
+import controller.CategoryController;
 import domain.Category;
-import repo.inMemory.CategoryRepo;
+import repo.inMemory.InMemoryRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class CategoryUI {
-    private static final CategoryRepo categoryRepo = new CategoryRepo();
+    private static final CategoryController categoryController = new CategoryController(new InMemoryRepo<>());
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void run() {
@@ -47,55 +48,57 @@ public class CategoryUI {
     }
 
     private static void createCategory() {
-//        System.out.print("Enter category name: ");
-//        String name = scanner.nextLine();
-//        System.out.print("Enter category description: ");
-//        String description = scanner.nextLine();
-//
-//        Category newCategory = categoryRepo.create(name, description);
-//        System.out.println("Category created with ID: " + newCategory.categoryID());
+        System.out.print("Enter category name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter category description: ");
+        String description = scanner.nextLine();
+
+        Category newCategory = new Category(0, name, description);
+        Category createdCategory = categoryController.createEntity(newCategory);
+
+        System.out.println("Category created with ID: " + createdCategory.getCategoryID());
     }
 
     private static void viewCategories() {
-//        System.out.println("Categories:");
-//        List<Category> categories = categoryRepo.getAllCategories();
-//        for (Category category : categories) {
-//            System.out.println("ID: " + category.categoryID() +
-//                    ", Name: " + category.name() +
-//                    ", Description: " + category.description());
-//        }
+        System.out.println("Categories:");
+        List<Category> categories = categoryController.getAllEntities();
+        for (Category category : categories) {
+            System.out.println("ID: " + category.getCategoryID() +
+                    ", Name: " + category.getName() +
+                    ", Description: " + category.getDescription());
+        }
     }
 
     private static void updateCategory() {
-//        System.out.print("Enter category ID to update: ");
-//        int categoryID = scanner.nextInt();
-//        scanner.nextLine();
-//
-//        Optional<Category> existingCategory = categoryRepo.getCategoryByID(categoryID);
-//        if (existingCategory.isPresent()) {
-//            System.out.print("Enter new category name: ");
-//            String name = scanner.nextLine();
-//            System.out.print("Enter new category description: ");
-//            String description = scanner.nextLine();
-//
-//            Category updatedCategory = new Category(categoryID, name, description);
-//            categoryRepo.updateCategory(updatedCategory);
-//            System.out.println("Category updated successfully.");
-//        } else {
-//            System.out.println("Category not found.");
-//        }
+        System.out.print("Enter category ID to update: ");
+        int categoryID = scanner.nextInt();
+        scanner.nextLine();
+
+        Optional<Category> existingCategory = categoryController.getEntityById(categoryID);
+        if (existingCategory.isPresent()) {
+            System.out.print("Enter new category name: ");
+            String name = scanner.nextLine();
+            System.out.print("Enter new category description: ");
+            String description = scanner.nextLine();
+
+            Category updatedCategory = new Category(categoryID, name, description);
+            categoryController.updateEntity(updatedCategory);
+            System.out.println("Category updated successfully.");
+        } else {
+            System.out.println("Category not found.");
+        }
     }
 
     private static void deleteCategory() {
-//        System.out.print("Enter category ID to delete: ");
-//        int categoryID = scanner.nextInt();
-//        scanner.nextLine();
-//
-//        boolean deleted = categoryRepo.deleteCategory(categoryID);
-//        if (deleted) {
-//            System.out.println("Category deleted successfully.");
-//        } else {
-//            System.out.println("Category not found.");
-//        }
+        System.out.print("Enter category ID to delete: ");
+        int categoryID = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean deleted = categoryController.deleteEntity(categoryID);
+        if (deleted) {
+            System.out.println("Category deleted successfully.");
+        } else {
+            System.out.println("Category not found.");
+        }
     }
 }

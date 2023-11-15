@@ -22,7 +22,7 @@ public class Address implements Identifiable {
 
     @Override
     public int getId() {
-        return 0;
+        return getAddressID();
     }
 
     public int getAddressID() {

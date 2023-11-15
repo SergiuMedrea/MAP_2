@@ -52,7 +52,7 @@ public class UI {
                     OrderUI.run();
                     break;
                 case 6:
-                    PaymentMethodUI.run();
+                    ReceiptUI.run();
                     break;
                 case 7:
                     DiscountUI.run();

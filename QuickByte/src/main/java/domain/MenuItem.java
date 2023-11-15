@@ -6,7 +6,7 @@ public class MenuItem implements Identifiable {
     private int restaurantID;
     private String name;
     private int price;
-    private String descriptio;
+    private String description;
 
     public MenuItem(int menuItemID,
                     int categoryID,
@@ -19,7 +19,7 @@ public class MenuItem implements Identifiable {
         this.restaurantID = restaurantID;
         this.name = name;
         this.price = price;
-        this.descriptio = descriptio;
+        this.description = descriptio;
     }
 
     @Override
@@ -72,11 +72,11 @@ public class MenuItem implements Identifiable {
         this.price = price;
     }
 
-    public String getDescriptio() {
-        return descriptio;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptio(String descriptio) {
-        this.descriptio = descriptio;
+    public void setDescription(String descriptio) {
+        this.description = descriptio;
     }
 }

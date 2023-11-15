@@ -1,13 +1,16 @@
 package ui;
 
+import controller.EntityController;
+import controller.MenuItemController;
 import domain.MenuItem;
-import repo.inMemory.MenuItemRepo;
+import repo.inMemory.InMemoryRepo;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class MenuItemUI {
-    private static final MenuItemRepo menuItemRepo = new MenuItemRepo();
+    private static final MenuItemController menuItemController = new MenuItemController(new InMemoryRepo<>());
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void run() {
@@ -46,74 +49,76 @@ public class MenuItemUI {
     }
 
     private static void createMenuItem() {
-//        System.out.print("Enter menu item name: ");
-//        String name = scanner.nextLine();
-//        System.out.print("Enter menu item price: ");
-//        int price = scanner.nextInt();
-//        scanner.nextLine();
-//        System.out.print("Enter menu item description: ");
-//        String description = scanner.nextLine();
-//        System.out.print("Enter menu item category: ");
-//        String category = scanner.nextLine();
-//        System.out.print("Enter restaurant ID: ");
-//        Long restaurantID = scanner.nextLong();
-//        scanner.nextLine();
-//
-//        MenuItem newMenuItem = menuItemRepo.createMenuItem(name, price, description, category, restaurantID);
-//        System.out.println("Menu item created with ID: " + newMenuItem.menuItemID());
+        System.out.print("Enter menu item name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter menu item price: ");
+        int price = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter menu item description: ");
+        String description = scanner.nextLine();
+        System.out.print("Enter menu item category ID: ");
+        int categoryID = scanner.nextInt();
+        System.out.print("Enter restaurant ID: ");
+        int restaurantID = scanner.nextInt();
+        scanner.nextLine();
+
+        MenuItem newMenuItem = new MenuItem(0, categoryID, restaurantID, name, price, description);
+        MenuItem createdMenuItem = menuItemController.createEntity(newMenuItem);
+
+        System.out.println("Menu item created with ID: " + createdMenuItem.getMenuItemID());
     }
 
     private static void viewMenuItems() {
-//        System.out.println("Menu Items:");
-//        List<MenuItem> menuItems = menuItemRepo.getAllMenuItems();
-//        for (MenuItem menuItem : menuItems) {
-//            System.out.println("ID: " + menuItem.menuItemID() +
-//                    ", Name: " + menuItem.name() +
-//                    ", Price: $" + menuItem.price() +
-//                    ", Description: " + menuItem.description() +
-//                    ", Category: " + menuItem.category() +
-//                    ", Restaurant ID: " + menuItem.restaurantID());
-//        }
+        System.out.println("Menu Items:");
+        List<MenuItem> menuItems = menuItemController.getAllEntities();
+        for (MenuItem menuItem : menuItems) {
+            System.out.println("ID: " + menuItem.getMenuItemID() +
+                    ", Name: " + menuItem.getName() +
+                    ", Price: $" + menuItem.getPrice() +
+                    ", Description: " + menuItem.getDescription() +
+                    ", Category ID: " + menuItem.getCategoryID() +
+                    ", Restaurant ID: " + menuItem.getRestaurantID());
+        }
     }
 
     private static void updateMenuItem() {
-//        System.out.print("Enter menu item ID to update: ");
-//        Long menuItemID = scanner.nextLong();
-//        scanner.nextLine();
-//
-//        MenuItem existingMenuItem = menuItemRepo.getMenuItemByID(menuItemID);
-//        if (existingMenuItem != null) {
-//            System.out.print("Enter new menu item name: ");
-//            String name = scanner.nextLine();
-//            System.out.print("Enter new menu item price: ");
-//            int price = scanner.nextInt();
-//            scanner.nextLine();
-//            System.out.print("Enter new menu item description: ");
-//            String description = scanner.nextLine();
-//            System.out.print("Enter new menu item category: ");
-//            String category = scanner.nextLine();
-//            System.out.print("Enter new restaurant ID: ");
-//            Long restaurantID = scanner.nextLong();
-//            scanner.nextLine();
-//
-//            MenuItem updatedMenuItem = new MenuItem(menuItemID, name, price, description, category, restaurantID);
-//            menuItemRepo.updateMenuItem(updatedMenuItem);
-//            System.out.println("Menu item updated successfully.");
-//        } else {
-//            System.out.println("Menu item not found.");
-//        }
+        System.out.print("Enter menu item ID to update: ");
+        int menuItemID = scanner.nextInt();
+        scanner.nextLine();
+
+        Optional<MenuItem> existingMenuItem = menuItemController.getEntityById(menuItemID);
+        if (existingMenuItem.isPresent()) {
+            System.out.print("Enter new menu item name: ");
+            String name = scanner.nextLine();
+            System.out.print("Enter new menu item price: ");
+            int price = scanner.nextInt();
+            scanner.nextLine();
+            System.out.print("Enter new menu item description: ");
+            String description = scanner.nextLine();
+            System.out.print("Enter new menu item category ID: ");
+            int categoryID = scanner.nextInt();
+            System.out.print("Enter new restaurant ID: ");
+            int restaurantID = scanner.nextInt();
+            scanner.nextLine();
+
+            MenuItem updatedMenuItem = new MenuItem(menuItemID, categoryID, restaurantID, name, price, description);
+            menuItemController.updateEntity(updatedMenuItem);
+            System.out.println("Menu item updated successfully.");
+        } else {
+            System.out.println("Menu item not found.");
+        }
     }
 
     private static void deleteMenuItem() {
-//        System.out.print("Enter menu item ID to delete: ");
-//        Long menuItemID = scanner.nextLong();
-//        scanner.nextLine();
-//
-//        boolean deleted = menuItemRepo.deleteMenuItem(menuItemID);
-//        if (deleted) {
-//            System.out.println("Menu item deleted successfully.");
-//        } else {
-//            System.out.println("Menu item not found.");
-//        }
+        System.out.print("Enter menu item ID to delete: ");
+        int menuItemID = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean deleted = menuItemController.deleteEntity(menuItemID);
+        if (deleted) {
+            System.out.println("Menu item deleted successfully.");
+        } else {
+            System.out.println("Menu item not found.");
+        }
     }
 }

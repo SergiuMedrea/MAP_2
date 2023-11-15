@@ -3,7 +3,7 @@ import java.sql.*;
 public class MySQLConnection {
     public static void main(String[] args) {
         // JDBC URL, username, and password of MySQL server
-        String ip = "192.168.1.139";
+        String ip = "192.168.14.30";
         String port = "3306";
         String database = "quickbytedb";
         String url = "jdbc:mysql://" + ip + ':' + port + '/' + database;
