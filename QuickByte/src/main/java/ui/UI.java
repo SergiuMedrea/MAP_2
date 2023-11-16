@@ -68,7 +68,7 @@ public class UI {
             System.out.println("5. Orders Management");
             System.out.println("6. Payment Methods Management");
             System.out.println("7. Promotions Management");
-            System.out.println("8. Restaurants Management");
+            System.out.println("8. Stores Management");
             System.out.println("9. Reviews Management");
             System.out.println("10. Users Management");
 

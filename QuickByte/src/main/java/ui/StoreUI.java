@@ -3,6 +3,7 @@ package ui;
 import controller.GroceryStoreController;
 import controller.RestaurantController;
 import domain.*;
+import repo.inMemory.GroceryStoreRepo;
 import repo.inMemory.RestaurantRepo;
 
 import java.util.List;
@@ -16,15 +17,16 @@ public class StoreUI implements EntityObserver<Restaurant> {
 
     public StoreUI() {
         restaurantController.setRepository(RestaurantRepo.getInstance());
+        groceryStoreController.setRepository(GroceryStoreRepo.getInstance());
     }
 
     public void run() {
         boolean exit = false;
         while (!exit) {
-            System.out.println("1. Create Restaurant");
-            System.out.println("2. View Restaurants");
-            System.out.println("3. Update Restaurant");
-            System.out.println("4. Delete Restaurant");
+            System.out.println("1. Create Store");
+            System.out.println("2. View Store");
+            System.out.println("3. Update Store");
+            System.out.println("4. Delete Store");
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
 
@@ -54,17 +56,17 @@ public class StoreUI implements EntityObserver<Restaurant> {
     }
 
     private void createStore() {
-        System.out.print("Enter store ID: ");
-        int restaurantID = scanner.nextInt();
         System.out.print("Enter address ID: ");
         int addressID = scanner.nextInt();
+        scanner.nextLine();
         System.out.println("Enter store name: ");
         String name = scanner.nextLine();
 
         System.out.println("What type of store do you want to create?(grocery/restaurant)");
         String type = scanner.nextLine().toLowerCase();
 
-        Store store = StoreFactory.getStore(type, restaurantID, addressID, name);
+        Store store = StoreFactory.getStore(type, 0, addressID, name);
+        assert store != null;
 
         if (type.equals("restaurant")) {
             Restaurant createdRestaurant = restaurantController.createEntity((Restaurant) store);
@@ -84,6 +86,14 @@ public class StoreUI implements EntityObserver<Restaurant> {
             System.out.println("ID: " + restaurant.getShopID() +
                     ", Name: " + restaurant.getName() +
                     ", Address ID: " + restaurant.getAddressID());
+        }
+
+        System.out.println("Grocery Stores:");
+        List<GroceryStore> groceryStores = groceryStoreController.getAllEntities();
+        for (GroceryStore groceryStore : groceryStores) {
+            System.out.println("ID: " + groceryStore.getShopID() +
+                    ", Name: " + groceryStore.getName() +
+                    ", Address ID: " + groceryStore.getAddressID());
         }
     }
 
