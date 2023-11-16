@@ -53,10 +53,11 @@ public class UserUI {
     public User createUser() {
         System.out.print("Enter first name: ");
         String firstName = scanner.nextLine();
-        System.out.println("Enter last name: ");
+        System.out.print("Enter last name: ");
         String lastName = scanner.nextLine();
-        System.out.println("Enter address ID: ");
+        System.out.print("Enter address ID: ");
         int addressID = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Enter phone number: ");
         String phoneNumber = scanner.nextLine();
 
@@ -115,5 +116,20 @@ public class UserUI {
         } else {
             System.out.println("User not found.");
         }
+    }
+
+    @Override
+    public void onEntityCreated(User user) {
+        System.out.println("\nonUserCreated: " + user.getFirstName() + '\n');
+    }
+
+    @Override
+    public void onEntityUpdated(User user) {
+        System.out.println("\nonUserUpdated: " + user.getFirstName() + '\n');
+    }
+
+    @Override
+    public void onEntityDeleted(int userId) {
+        System.out.println("\nonUserDeleted " + userId + '\n');
     }
 }

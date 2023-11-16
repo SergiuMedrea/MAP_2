@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class EntityController<T extends Identifiable> {
-    private final InMemoryRepo<T> repository;
-    private final List<EntityObserver<T>> observers = new ArrayList<>();
+    private InMemoryRepo<T> repository;
 
     public void setRepository(InMemoryRepo<T> repository) {
         this.repository = repository;
     }
+
     public T createEntity(T entity) {
         T createdEntity = repository.create(entity);
         notifyObserversEntityCreated(createdEntity);

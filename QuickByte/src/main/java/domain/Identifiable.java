@@ -1,8 +1,6 @@
 package domain;
 
-import repo.inMemory.EntitySubject;
-
-public interface Identifiable extends EntitySubject<Identifiable> {
+public interface Identifiable {
     int getId();
 
     void setId(int id);
