@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class InMemoryRepo<T extends Identifiable> {
+public class InMemoryRepo<T extends Identifiable> extends EntityObservable<T>{
     private final List<T> entities = new ArrayList<>();
     private int nextID = 1;
 
@@ -14,6 +14,7 @@ public class InMemoryRepo<T extends Identifiable> {
         entity.setId(nextID);
         entities.add(entity);
         nextID++;
+        notifyObserversEntityCreated(entity);
         return entity;
     }
 
@@ -40,6 +41,7 @@ public class InMemoryRepo<T extends Identifiable> {
     }
     
     public boolean delete(int id) {
+    notifyObserversEntityDeleted(id);
         return entities.removeIf(entity -> entity.getId() == id);
     }
 }

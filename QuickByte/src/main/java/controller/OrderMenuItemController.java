@@ -7,7 +7,22 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderMenuItemController {
-    private final OrderMenuItemRepo orderMenuItemRepo;
+    private static OrderMenuItemController instance = null;
+    private OrderMenuItemRepo orderMenuItemRepo;
+
+    private OrderMenuItemController(){}
+
+    public void setRepo(OrderMenuItemRepo repo){
+        this.orderMenuItemRepo = repo;
+    }
+
+    public static OrderMenuItemController getInstance() {
+        if (instance == null) {
+            instance = new OrderMenuItemController();
+        }
+
+        return instance;
+    }
 
     public OrderMenuItemController(OrderMenuItemRepo orderMenuItemRepo) {
         this.orderMenuItemRepo = orderMenuItemRepo;

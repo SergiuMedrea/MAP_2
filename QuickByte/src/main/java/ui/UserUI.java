@@ -1,18 +1,20 @@
 package ui;
 
 import controller.UserController;
+import domain.EntityObserver;
 import domain.User;
 import repo.inMemory.UserRepo;
 
 import java.util.Optional;
 import java.util.Scanner;
 
-public class UserUI {
+public class UserUI implements EntityObserver<User> {
     private static final UserController userController = UserController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
     public UserUI() {
         userController.setRepository(UserRepo.getInstance());
+        UserRepo.getInstance().registerObserver(this);
     }
 
     public void run() {
