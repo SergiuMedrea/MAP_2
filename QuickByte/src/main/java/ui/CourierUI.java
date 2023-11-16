@@ -53,16 +53,16 @@ public class CourierUI implements EntityObserver<Courier> {
     }
 
     private void createCourier() {
-        System.out.print("Enter courier info\n");
         System.out.print("Enter first name: ");
         String firstName = scanner.nextLine();
-        System.out.println("Enter last name: ");
+        System.out.print("Enter last name: ");
         String lastName = scanner.nextLine();
-        System.out.println("Enter address ID: ");
+        System.out.print("Enter address ID: ");
         int addressID = scanner.nextInt();
+        scanner.nextLine();
         System.out.print("Enter phone number: ");
         String phoneNumber = scanner.nextLine();
-        System.out.print("Enter courier vehicle paymentType: ");
+        System.out.print("Enter courier vehicle type: ");
         String vehicleType = scanner.nextLine();
 
         Courier newCourier = new Courier(0, addressID, firstName, lastName, phoneNumber, vehicleType);

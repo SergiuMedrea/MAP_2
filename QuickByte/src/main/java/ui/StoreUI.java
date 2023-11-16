@@ -59,7 +59,7 @@ public class StoreUI implements EntityObserver<Restaurant> {
         System.out.print("Enter address ID: ");
         int addressID = scanner.nextInt();
         scanner.nextLine();
-        System.out.println("Enter store name: ");
+        System.out.print("Enter store name: ");
         String name = scanner.nextLine();
 
         System.out.println("What type of store do you want to create?(grocery/restaurant)");
@@ -98,35 +98,79 @@ public class StoreUI implements EntityObserver<Restaurant> {
     }
 
     private void updateStores() {
-        System.out.print("Enter restaurant ID to update: ");
-        int restaurantID = scanner.nextInt();
-        scanner.nextLine();
+        System.out.println("What kind of store do you want to update?(grocery/restaurant)");
+        String type = scanner.nextLine().toLowerCase();
+        if(type.equals("restaurant")) {
+            System.out.print("Enter restaurant ID to update: ");
+            int storeID = scanner.nextInt();
+            scanner.nextLine();
 
-        Optional<Restaurant> existingRestaurant = restaurantController.getEntityById(restaurantID);
-        if (existingRestaurant.isPresent()) {
-            System.out.print("Enter new restaurant name: ");
-            String name = scanner.nextLine();
-            System.out.print("Enter new address ID: ");
-            int addressID = scanner.nextInt();
+            Optional<Restaurant> existingRestaurant = restaurantController.getEntityById(storeID);
 
-            Restaurant updatedRestaurant = new Restaurant(restaurantID, addressID, name);
-            restaurantController.updateEntity(updatedRestaurant);
-            System.out.println("Restaurant updated successfully.");
-        } else {
-            System.out.println("Restaurant not found.");
+            if (existingRestaurant.isPresent()) {
+                System.out.print("Enter new restaurant name: ");
+                String name = scanner.nextLine();
+                System.out.print("Enter new address ID: ");
+                int addressID = scanner.nextInt();
+
+                Restaurant updatedRestaurant = new Restaurant(storeID, addressID, name);
+                restaurantController.updateEntity(updatedRestaurant);
+                System.out.println("Restaurant updated successfully.");
+            } else {
+                System.out.println("Restaurant not found.");
+            }
+
+        } else if(type.equals("grocery")){
+            System.out.print("Enter grocery ID to update: ");
+            int storeID = scanner.nextInt();
+            scanner.nextLine();
+
+            Optional<GroceryStore> existingGroceryStore = groceryStoreController.getEntityById(storeID);
+
+            if(existingGroceryStore.isPresent()) {
+                System.out.print("Enter new grocery store name: ");
+                String name = scanner.nextLine();
+                System.out.print("Enter new address ID: ");
+                int addressID = scanner.nextInt();
+
+                GroceryStore updatedGroceryStore = new GroceryStore(storeID, addressID, name);
+                groceryStoreController.updateEntity(updatedGroceryStore);
+                System.out.println("Grocery Store updated successfully.");
+
+            } else {
+                System.out.println("Grocery Store not found.");
+            }
         }
     }
 
     private void deleteStore() {
-        System.out.print("Enter restaurant ID to delete: ");
-        int restaurantID = scanner.nextInt();
-        scanner.nextLine();
+        System.out.println("What kind of store do you want to update?(grocery/restaurant)");
+        String type = scanner.nextLine().toLowerCase();
+        if(type.equals("restaurant")) {
+            System.out.print("Enter restaurant ID to delete: ");
+            int storeID = scanner.nextInt();
+            scanner.nextLine();
 
-        boolean deleted = restaurantController.deleteEntity(restaurantID);
-        if (deleted) {
-            System.out.println("Restaurant deleted successfully.");
-        } else {
-            System.out.println("Restaurant not found.");
+            boolean deletedRestaurant = restaurantController.deleteEntity(storeID);
+
+            if (deletedRestaurant) {
+                System.out.println("Restaurant deleted successfully.");
+            } else {
+                System.out.println("Restaurant not found.");
+            }
+
+        } else if(type.equals("grocery")){
+            System.out.print("Enter grocery store ID to delete: ");
+            int storeID = scanner.nextInt();
+            scanner.nextLine();
+
+            boolean deletedGroceryStore = groceryStoreController.deleteEntity(storeID);
+
+            if(deletedGroceryStore) {
+                System.out.println("Grocery Store deleted successfully.");
+            } else {
+                System.out.println("Grocery Store not found.");
+            }
         }
     }
 

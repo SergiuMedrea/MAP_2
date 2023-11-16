@@ -21,10 +21,10 @@ public class DiscountUI implements EntityObserver<Discount> {
     public void run() {
         boolean exit = false;
         while (!exit) {
-            System.out.println("1. Create Promotion");
-            System.out.println("2. View Promotions");
-            System.out.println("3. Update Promotion");
-            System.out.println("4. Delete Promotion");
+            System.out.println("1. Create Discount");
+            System.out.println("2. View Discounts");
+            System.out.println("3. Update Discount");
+            System.out.println("4. Delete Discount");
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
 

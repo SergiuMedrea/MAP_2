@@ -54,7 +54,7 @@ public class OrderUI implements EntityObserver<Order> {
     }
 
     public void createOrder() {
-        System.out.print("Enter order date (YYYY-MM-DD): ");
+        System.out.print("Enter order date (YYYY-MM-DD HH:mm:ss): ");
         String dateString = scanner.nextLine();
         Timestamp date = Timestamp.valueOf(dateString);
         System.out.print("Enter user ID: ");

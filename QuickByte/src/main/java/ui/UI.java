@@ -66,8 +66,8 @@ public class UI {
             System.out.println("3. Couriers Management");
             System.out.println("4. Menu Items Management");
             System.out.println("5. Orders Management");
-            System.out.println("6. Payment Methods Management");
-            System.out.println("7. Promotions Management");
+            System.out.println("6. Receipts Management");
+            System.out.println("7. Discounts Management");
             System.out.println("8. Stores Management");
             System.out.println("9. Reviews Management");
             System.out.println("10. Users Management");
@@ -127,6 +127,6 @@ public class UI {
     }
 
     private void runDatabase() {
-        System.out.println("Coming soon...");
+        System.out.println("Coming soon...\n\n");
     }
 }
