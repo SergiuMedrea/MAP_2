@@ -11,7 +11,7 @@ public class UI {
     private static OrderUI orderUI;
     private static ReceiptUI receiptUI;
     private static DiscountUI discountUI;
-    private static RestaurantUI restaurantUI;
+    private static StoreUI storeUI;
     private static ReviewUI reviewUI;
     private static UserUI userUI;
 
@@ -23,7 +23,7 @@ public class UI {
         orderUI = new OrderUI();
         receiptUI = new ReceiptUI();
         discountUI = new DiscountUI();
-        restaurantUI = new RestaurantUI();
+        storeUI = new StoreUI();
         reviewUI = new ReviewUI();
         userUI = new UserUI();
     }
@@ -40,6 +40,26 @@ public class UI {
 
         boolean exit = false;
         while (!exit) {
+            System.out.println("Choose the Repository type:");
+            System.out.println("1. In Memory");
+            System.out.println("2. Database");
+
+            System.out.println("\n>>");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    runInMemory();
+                    break;
+                case 2:
+                    runDatabase();
+                    continue;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    continue;
+            }
+
             System.out.println("0. Exit");
             System.out.println("1. Addresses Management");
             System.out.println("2. Categories Management");
@@ -53,7 +73,7 @@ public class UI {
             System.out.println("10. Users Management");
 
             System.out.println("\n>>");
-            int choice = scanner.nextInt();
+            choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
@@ -82,7 +102,7 @@ public class UI {
                     discountUI.run();
                     break;
                 case 8:
-                    restaurantUI.run();
+                    storeUI.run();
                     break;
                 case 9:
                     reviewUI.run();
@@ -101,5 +121,12 @@ public class UI {
                 " | |_) | |_| |  __/ | |_) | |_| |  __/_|\n" +
                 " |____/ \\__, |\\___| |____/ \\__, |\\___(_)\n" +
                 "        |___/              |___/        \n");
+    }
+
+    private void runInMemory() {
+    }
+
+    private void runDatabase() {
+        System.out.println("Coming soon...");
     }
 }

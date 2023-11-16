@@ -2,10 +2,13 @@ package controller;
 
 import domain.Courier;
 
-public class CourierController extends EntityController<Courier>{
+public class CourierController extends EntityController<Courier> {
     private static CourierController instance = null;
 
-    private CourierController(){};
+    private CourierController() {
+    }
+
+    ;
 
     public static CourierController getInstance() {
         if (instance == null) {

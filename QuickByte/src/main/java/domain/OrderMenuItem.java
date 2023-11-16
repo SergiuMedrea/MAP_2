@@ -1,6 +1,6 @@
 package domain;
 
-public class OrderMenuItem{
+public class OrderMenuItem {
     private int orderID;
     private int menuItemID;
     private int quantity;

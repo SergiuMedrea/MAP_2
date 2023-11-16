@@ -37,7 +37,15 @@ create table Couriers
 
 create table Restaurants
 (
-    restaurantID int PRIMARY KEY AUTO_INCREMENT,
+    storeID int PRIMARY KEY AUTO_INCREMENT,
+    addressID    int,
+    name         varchar(64),
+    foreign key (addressID) references Addresses (addressID)
+);
+
+create table GroceryStores
+(
+    storeID int PRIMARY KEY AUTO_INCREMENT,
     addressID    int,
     name         varchar(64),
     foreign key (addressID) references Addresses (addressID)
@@ -47,12 +55,12 @@ create table MenuItems
 (
     menuItemID   int primary key AUTO_INCREMENT,
     categoryID   int,
-    restaurantID int,
+    storeID int,
     name         varchar(64),
     description  varchar(128),
     price        int,
     foreign key (categoryID) references Categories (categoryID),
-    foreign key (restaurantID) references Restaurants (restaurantID)
+    foreign key (storeID) references Restaurants (storeID)
 );
 
 create table Orders
@@ -70,13 +78,13 @@ create table Orders
 create table Discounts
 (
     discountID         int primary key AUTO_INCREMENT,
-    restaurantID       int,
+    storeID       int,
     name               varchar(64),
     description        varchar(128),
     startDate          date,
     endDate            date,
     discountPercentage int,
-    foreign key (restaurantID) references Restaurants (restaurantID)
+    foreign key (storeID) references Restaurants (storeID)
 );
 
 create table OrderMenuItems
@@ -104,9 +112,9 @@ create table Reviews
 (
     reviewID     int primary key AUTO_INCREMENT,
     userID       int,
-    restaurantID int,
+    storeID int,
     rating       int,
     comment      varchar(128),
     foreign key (userID) references Users (userID),
-    foreign key (restaurantID) references Restaurants (restaurantID)
+    foreign key (storeID) references Restaurants (storeID)
 );

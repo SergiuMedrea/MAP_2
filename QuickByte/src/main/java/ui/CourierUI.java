@@ -2,15 +2,14 @@ package ui;
 
 import controller.CourierController;
 import domain.Courier;
-import domain.User;
+import domain.EntityObserver;
 import repo.inMemory.CourierRepo;
-import repo.inMemory.InMemoryRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class CourierUI {
+public class CourierUI implements EntityObserver<Courier> {
     private static final CourierController courierController = CourierController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -122,4 +121,20 @@ public class CourierUI {
             System.out.println("Courier not found.");
         }
     }
+
+    @Override
+    public void onEntityCreated(Courier entity) {
+
+    }
+
+    @Override
+    public void onEntityUpdated(Courier entity) {
+
+    }
+
+    @Override
+    public void onEntityDeleted(int entityId) {
+
+    }
+
 }

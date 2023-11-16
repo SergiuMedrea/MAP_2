@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class InMemoryRepo<T extends Identifiable> extends EntityObservable<T>{
+public class InMemoryRepo<T extends Identifiable> extends EntityObservable<T> {
     private final List<T> entities = new ArrayList<>();
     private int nextID = 1;
 
@@ -31,17 +31,18 @@ public class InMemoryRepo<T extends Identifiable> extends EntityObservable<T>{
     public boolean update(T updatedEntity) {
         for (int i = 0; i < entities.size(); i++) {
             T existingEntity = entities.get(i);
-//            if (existingEntity.getId() == updatedEntity.getId(notifyObserversEntityUpdated(updatedEntity)) {
-//                entities.set(i, updatedEntity);
-//                return true;
-//            }
+            if (existingEntity.getId() == updatedEntity.getId()) {
+                notifyObserversEntityUpdated(updatedEntity);
+                entities.set(i, updatedEntity);
+                return true;
+            }
         }
         return false;
 
     }
-    
+
     public boolean delete(int id) {
-    notifyObserversEntityDeleted(id);
+        notifyObserversEntityDeleted(id);
         return entities.removeIf(entity -> entity.getId() == id);
     }
 }

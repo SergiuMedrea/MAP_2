@@ -1,16 +1,15 @@
 package ui;
 
-import controller.EntityController;
 import controller.MenuItemController;
+import domain.EntityObserver;
 import domain.MenuItem;
-import repo.inMemory.InMemoryRepo;
 import repo.inMemory.MenuItemRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class MenuItemUI {
+public class MenuItemUI implements EntityObserver<MenuItem> {
     private static final MenuItemController menuItemController = MenuItemController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -125,5 +124,20 @@ public class MenuItemUI {
         } else {
             System.out.println("Menu item not found.");
         }
+    }
+
+    @Override
+    public void onEntityCreated(MenuItem entity) {
+
+    }
+
+    @Override
+    public void onEntityUpdated(MenuItem entity) {
+
+    }
+
+    @Override
+    public void onEntityDeleted(int entityId) {
+
     }
 }

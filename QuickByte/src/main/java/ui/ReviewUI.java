@@ -1,15 +1,15 @@
 package ui;
 
 import controller.ReviewController;
+import domain.EntityObserver;
 import domain.Review;
-import repo.inMemory.InMemoryRepo;
 import repo.inMemory.ReviewRepo;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.List;
 
-public class ReviewUI {
+public class ReviewUI implements EntityObserver<Review> {
     private static final ReviewController reviewController = ReviewController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -120,5 +120,20 @@ public class ReviewUI {
         } else {
             System.out.println("Review not found.");
         }
+    }
+
+    @Override
+    public void onEntityCreated(Review entity) {
+
+    }
+
+    @Override
+    public void onEntityUpdated(Review entity) {
+
+    }
+
+    @Override
+    public void onEntityDeleted(int entityId) {
+
     }
 }

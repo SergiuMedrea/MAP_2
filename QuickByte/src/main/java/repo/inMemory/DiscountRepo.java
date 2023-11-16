@@ -2,7 +2,7 @@ package repo.inMemory;
 
 import domain.Discount;
 
-public class DiscountRepo extends InMemoryRepo<Discount>{
+public class DiscountRepo extends InMemoryRepo<Discount> {
     private static DiscountRepo instance = null;
 
     private DiscountRepo() {

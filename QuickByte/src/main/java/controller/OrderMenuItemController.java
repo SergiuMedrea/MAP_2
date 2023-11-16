@@ -10,9 +10,10 @@ public class OrderMenuItemController {
     private static OrderMenuItemController instance = null;
     private OrderMenuItemRepo orderMenuItemRepo;
 
-    private OrderMenuItemController(){}
+    private OrderMenuItemController() {
+    }
 
-    public void setRepo(OrderMenuItemRepo repo){
+    public void setRepo(OrderMenuItemRepo repo) {
         this.orderMenuItemRepo = repo;
     }
 

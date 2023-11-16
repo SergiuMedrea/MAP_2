@@ -1,8 +1,8 @@
 package ui;
 
 import controller.OrderController;
+import domain.EntityObserver;
 import domain.Order;
-import repo.inMemory.InMemoryRepo;
 import repo.inMemory.OrderRepo;
 
 import java.sql.Timestamp;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class OrderUI {
+public class OrderUI implements EntityObserver<Order> {
     private static final OrderController orderController = OrderController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -68,7 +68,7 @@ public class OrderUI {
         scanner.nextLine();
 
         Order newOrder = new Order(0, userID, courierID, addressID, date);
-        Order createdOrder =  orderController.createEntity(newOrder);
+        Order createdOrder = orderController.createEntity(newOrder);
 
         System.out.println("Order created with ID: " + createdOrder.getOrderID());
     }
@@ -124,5 +124,20 @@ public class OrderUI {
         } else {
             System.out.println("Order not found.");
         }
+    }
+
+    @Override
+    public void onEntityCreated(Order entity) {
+
+    }
+
+    @Override
+    public void onEntityUpdated(Order entity) {
+
+    }
+
+    @Override
+    public void onEntityDeleted(int entityId) {
+
     }
 }

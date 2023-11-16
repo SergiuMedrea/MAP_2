@@ -1,19 +1,20 @@
 package ui;
 
+import controller.GroceryStoreController;
 import controller.RestaurantController;
-import domain.Restaurant;
-import repo.inMemory.InMemoryRepo;
+import domain.*;
 import repo.inMemory.RestaurantRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class RestaurantUI {
+public class StoreUI implements EntityObserver<Restaurant> {
     private static final RestaurantController restaurantController = RestaurantController.getInstance();
+    private static final GroceryStoreController groceryStoreController = GroceryStoreController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public RestaurantUI() {
+    public StoreUI() {
         restaurantController.setRepository(RestaurantRepo.getInstance());
     }
 
@@ -32,16 +33,16 @@ public class RestaurantUI {
 
             switch (choice) {
                 case 1:
-                    createRestaurant();
+                    createStore();
                     break;
                 case 2:
-                    viewRestaurants();
+                    viewStores();
                     break;
                 case 3:
-                    updateRestaurant();
+                    updateStores();
                     break;
                 case 4:
-                    deleteRestaurant();
+                    deleteStore();
                     break;
                 case 5:
                     exit = true;
@@ -52,30 +53,41 @@ public class RestaurantUI {
         }
     }
 
-    private void createRestaurant() {
-        System.out.print("Enter restaurant ID: ");
+    private void createStore() {
+        System.out.print("Enter store ID: ");
         int restaurantID = scanner.nextInt();
         System.out.print("Enter address ID: ");
         int addressID = scanner.nextInt();
-        System.out.println("Enter restaurant name: ");
+        System.out.println("Enter store name: ");
         String name = scanner.nextLine();
 
-        Restaurant newRestaurant = new Restaurant(restaurantID, addressID, name);
-        Restaurant createdRestaurant = restaurantController.createEntity(newRestaurant);
-        System.out.println("Restaurant created with ID: " + createdRestaurant.getRestaurantID());
+        System.out.println("What type of store do you want to create?(grocery/restaurant)");
+        String type = scanner.nextLine().toLowerCase();
+
+        Store store = StoreFactory.getStore(type, restaurantID, addressID, name);
+
+        if (type.equals("restaurant")) {
+            Restaurant createdRestaurant = restaurantController.createEntity((Restaurant) store);
+            System.out.println("Restaurant created with ID: " + createdRestaurant.getShopID());
+        } else if (type.equals("grocery")) {
+            GroceryStore createdGroceryStore = groceryStoreController.createEntity((GroceryStore) store);
+            System.out.println("Grocery Store created with ID: " + createdGroceryStore.getShopID());
+        } else {
+            System.out.println("Invalid store type.");
+        }
     }
 
-    private void viewRestaurants() {
+    private void viewStores() {
         System.out.println("Restaurants:");
         List<Restaurant> restaurants = restaurantController.getAllEntities();
         for (Restaurant restaurant : restaurants) {
-            System.out.println("ID: " + restaurant.getRestaurantID() +
+            System.out.println("ID: " + restaurant.getShopID() +
                     ", Name: " + restaurant.getName() +
                     ", Address ID: " + restaurant.getAddressID());
         }
     }
 
-    private void updateRestaurant() {
+    private void updateStores() {
         System.out.print("Enter restaurant ID to update: ");
         int restaurantID = scanner.nextInt();
         scanner.nextLine();
@@ -95,7 +107,7 @@ public class RestaurantUI {
         }
     }
 
-    private void deleteRestaurant() {
+    private void deleteStore() {
         System.out.print("Enter restaurant ID to delete: ");
         int restaurantID = scanner.nextInt();
         scanner.nextLine();
@@ -106,5 +118,20 @@ public class RestaurantUI {
         } else {
             System.out.println("Restaurant not found.");
         }
+    }
+
+    @Override
+    public void onEntityCreated(Restaurant entity) {
+
+    }
+
+    @Override
+    public void onEntityUpdated(Restaurant entity) {
+
+    }
+
+    @Override
+    public void onEntityDeleted(int entityId) {
+
     }
 }

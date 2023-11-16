@@ -1,15 +1,15 @@
 package ui;
 
 import controller.ReceiptController;
+import domain.EntityObserver;
 import domain.Receipt;
-import repo.inMemory.InMemoryRepo;
 import repo.inMemory.ReceiptRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class ReceiptUI {
+public class ReceiptUI implements EntityObserver<Receipt> {
     private static final ReceiptController receiptController = ReceiptController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -124,5 +124,20 @@ public class ReceiptUI {
         } else {
             System.out.println("Payment method not found.");
         }
+    }
+
+    @Override
+    public void onEntityCreated(Receipt entity) {
+
+    }
+
+    @Override
+    public void onEntityUpdated(Receipt entity) {
+
+    }
+
+    @Override
+    public void onEntityDeleted(int entityId) {
+
     }
 }

@@ -2,10 +2,11 @@ package controller;
 
 import domain.Restaurant;
 
-public class RestaurantController extends EntityController<Restaurant>{
+public class RestaurantController extends EntityController<Restaurant> {
     private static RestaurantController instance = null;
 
-    private RestaurantController(){}
+    private RestaurantController() {
+    }
 
     public static RestaurantController getInstance() {
         if (instance == null) {

@@ -2,13 +2,14 @@ package ui;
 
 import controller.AddressController;
 import domain.Address;
+import domain.EntityObserver;
 import repo.inMemory.AddressRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class AddressUI {
+public class AddressUI implements EntityObserver<Address> {
     private static final AddressController addressController = AddressController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -115,5 +116,20 @@ public class AddressUI {
         } else {
             System.out.println("Address not found.");
         }
+    }
+
+    @Override
+    public void onEntityCreated(Address address) {
+        System.out.println("\nonAddressCreated: " + address.getAddressID() + '\n');
+    }
+
+    @Override
+    public void onEntityUpdated(Address address) {
+        System.out.println("\nonAddressUpdated: " + address.getAddressID() + '\n');
+    }
+
+    @Override
+    public void onEntityDeleted(int addressId) {
+        System.out.println("\nonAddressDeleted: " + addressId + '\n');
     }
 }

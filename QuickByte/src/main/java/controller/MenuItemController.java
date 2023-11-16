@@ -2,10 +2,13 @@ package controller;
 
 import domain.MenuItem;
 
-public class MenuItemController extends EntityController<MenuItem>{
+public class MenuItemController extends EntityController<MenuItem> {
     private static MenuItemController instance = null;
 
-    private MenuItemController(){};
+    private MenuItemController() {
+    }
+
+    ;
 
     public static MenuItemController getInstance() {
         if (instance == null) {

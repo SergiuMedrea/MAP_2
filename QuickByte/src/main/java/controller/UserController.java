@@ -1,12 +1,12 @@
 package controller;
 
 import domain.User;
-import repo.inMemory.InMemoryRepo;
 
-public class UserController extends EntityController<User>{
+public class UserController extends EntityController<User> {
     private static UserController instance = null;
 
-    private UserController(){}
+    private UserController() {
+    }
 
     public static UserController getInstance() {
         if (instance == null) {

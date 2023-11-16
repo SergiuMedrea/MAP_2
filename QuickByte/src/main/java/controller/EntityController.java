@@ -1,6 +1,5 @@
 package controller;
 
-import domain.EntityObserver;
 import domain.Identifiable;
 import repo.inMemory.InMemoryRepo;
 

@@ -1,4 +1,5 @@
 package repo.inMemory;
+
 import domain.EntityObserver;
 import domain.Identifiable;
 

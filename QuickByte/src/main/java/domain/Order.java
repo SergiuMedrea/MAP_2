@@ -2,7 +2,7 @@ package domain;
 
 import java.sql.Timestamp;
 
-public class Order implements Identifiable{
+public class Order implements Identifiable {
     private int orderID;
     private int userID;
     private int courierID;

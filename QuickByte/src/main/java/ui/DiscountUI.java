@@ -2,15 +2,15 @@ package ui;
 
 import controller.DiscountController;
 import domain.Discount;
+import domain.EntityObserver;
 import repo.inMemory.DiscountRepo;
-import repo.inMemory.InMemoryRepo;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class DiscountUI {
+public class DiscountUI implements EntityObserver<Discount> {
     private static final DiscountController discountController = DiscountController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -134,5 +134,20 @@ public class DiscountUI {
         } else {
             System.out.println("Promotion not found.");
         }
+    }
+
+    @Override
+    public void onEntityCreated(Discount entity) {
+
+    }
+
+    @Override
+    public void onEntityUpdated(Discount entity) {
+
+    }
+
+    @Override
+    public void onEntityDeleted(int entityId) {
+
     }
 }

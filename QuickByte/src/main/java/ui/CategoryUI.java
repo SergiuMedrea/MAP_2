@@ -2,13 +2,14 @@ package ui;
 
 import controller.CategoryController;
 import domain.Category;
+import domain.EntityObserver;
 import repo.inMemory.CategoryRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class CategoryUI {
+public class CategoryUI implements EntityObserver<Category> {
     private static final CategoryController categoryController = CategoryController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -104,5 +105,20 @@ public class CategoryUI {
         } else {
             System.out.println("Category not found.");
         }
+    }
+
+    @Override
+    public void onEntityCreated(Category category) {
+        System.out.println("\nonCategoryCreated: " + category.getName() + '\n');
+    }
+
+    @Override
+    public void onEntityUpdated(Category category) {
+        System.out.println("\nonCategoryUpdated: " + category.getName() + '\n');
+    }
+
+    @Override
+    public void onEntityDeleted(int categoryId) {
+        System.out.println("\nonCategoryDeleted: " + categoryId + '\n');
     }
 }

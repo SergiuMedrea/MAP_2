@@ -93,7 +93,7 @@ public class UserUI implements EntityObserver<User> {
             String firstName = scanner.nextLine();
             System.out.print("Enter new last name: ");
             String lastName = scanner.nextLine();
-            System.out.print("Enter new address\n");
+            System.out.print("Enter new address id\n");
             int addressID = scanner.nextInt();
             System.out.print("Enter new phone number: ");
             String phoneNumber = scanner.nextLine();
