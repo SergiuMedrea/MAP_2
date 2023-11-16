@@ -4,16 +4,21 @@ import controller.EntityController;
 import controller.MenuItemController;
 import domain.MenuItem;
 import repo.inMemory.InMemoryRepo;
+import repo.inMemory.MenuItemRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class MenuItemUI {
-    private static final MenuItemController menuItemController = new MenuItemController(new InMemoryRepo<>());
+    private static final MenuItemController menuItemController = MenuItemController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public MenuItemUI() {
+        menuItemController.setRepository(MenuItemRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create Menu Item");
@@ -48,7 +53,7 @@ public class MenuItemUI {
         }
     }
 
-    private static void createMenuItem() {
+    private void createMenuItem() {
         System.out.print("Enter menu item name: ");
         String name = scanner.nextLine();
         System.out.print("Enter menu item price: ");
@@ -68,7 +73,7 @@ public class MenuItemUI {
         System.out.println("Menu item created with ID: " + createdMenuItem.getMenuItemID());
     }
 
-    private static void viewMenuItems() {
+    private void viewMenuItems() {
         System.out.println("Menu Items:");
         List<MenuItem> menuItems = menuItemController.getAllEntities();
         for (MenuItem menuItem : menuItems) {
@@ -81,7 +86,7 @@ public class MenuItemUI {
         }
     }
 
-    private static void updateMenuItem() {
+    private void updateMenuItem() {
         System.out.print("Enter menu item ID to update: ");
         int menuItemID = scanner.nextInt();
         scanner.nextLine();
@@ -109,7 +114,7 @@ public class MenuItemUI {
         }
     }
 
-    private static void deleteMenuItem() {
+    private void deleteMenuItem() {
         System.out.print("Enter menu item ID to delete: ");
         int menuItemID = scanner.nextInt();
         scanner.nextLine();

@@ -1,8 +1,32 @@
 package ui;
 
 import java.util.Scanner;
+
 public class UI {
     private static final Scanner scanner = new Scanner(System.in);
+    private static AddressUI addressUI;
+    private static CategoryUI categoryUI;
+    private static CourierUI courierUI;
+    private static MenuItemUI menuItemUI;
+    private static OrderUI orderUI;
+    private static ReceiptUI receiptUI;
+    private static DiscountUI discountUI;
+    private static RestaurantUI restaurantUI;
+    private static ReviewUI reviewUI;
+    private static UserUI userUI;
+
+    public UI() {
+        addressUI = new AddressUI();
+        categoryUI = new CategoryUI();
+        courierUI = new CourierUI();
+        menuItemUI = new MenuItemUI();
+        orderUI = new OrderUI();
+        receiptUI = new ReceiptUI();
+        discountUI = new DiscountUI();
+        restaurantUI = new RestaurantUI();
+        reviewUI = new ReviewUI();
+        userUI = new UserUI();
+    }
 
     public void run() {
         System.out.println("\n" +
@@ -15,7 +39,7 @@ public class UI {
                 "                                                                       \n");
 
         boolean exit = false;
-        while(!exit) {
+        while (!exit) {
             System.out.println("0. Exit");
             System.out.println("1. Addresses Management");
             System.out.println("2. Categories Management");
@@ -37,34 +61,34 @@ public class UI {
                     exit = true;
                     break;
                 case 1:
-                    AddressUI.run();
+                    addressUI.run();
                     break;
                 case 2:
-                    CategoryUI.run();
+                    categoryUI.run();
                     break;
                 case 3:
-                    CourierUI.run();
+                    courierUI.run();
                     break;
                 case 4:
-                    MenuItemUI.run();
+                    menuItemUI.run();
                     break;
                 case 5:
-                    OrderUI.run();
+                    orderUI.run();
                     break;
                 case 6:
-                    ReceiptUI.run();
+                    receiptUI.run();
                     break;
                 case 7:
-                    DiscountUI.run();
+                    discountUI.run();
                     break;
                 case 8:
-                    RestaurantUI.run();
+                    restaurantUI.run();
                     break;
                 case 9:
-                    ReviewUI.run();
+                    reviewUI.run();
                     break;
                 case 10:
-                    UserUI.run();
+                    userUI.run();
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");

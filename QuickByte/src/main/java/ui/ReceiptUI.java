@@ -3,16 +3,21 @@ package ui;
 import controller.ReceiptController;
 import domain.Receipt;
 import repo.inMemory.InMemoryRepo;
+import repo.inMemory.ReceiptRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class ReceiptUI {
-    private static final ReceiptController receiptController = new ReceiptController(new InMemoryRepo<>());
+    private static final ReceiptController receiptController = ReceiptController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public ReceiptUI() {
+        receiptController.setRepository(ReceiptRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create Receipt");
@@ -47,7 +52,7 @@ public class ReceiptUI {
         }
     }
 
-    private static void createReceipt() {
+    private void createReceipt() {
         System.out.print("Enter user ID: ");
         int userID = scanner.nextInt();
         scanner.nextLine();
@@ -67,7 +72,7 @@ public class ReceiptUI {
         System.out.println("Payment method created with ID: " + createdReceipt.getUserID() + createdReceipt.getOrderID());
     }
 
-    private static void viewReceipts() {
+    private void viewReceipts() {
         System.out.println("Payment Methods:");
         List<Receipt> receipts = receiptController.getAllEntities();
         for (Receipt receipt : receipts) {
@@ -79,7 +84,7 @@ public class ReceiptUI {
         }
     }
 
-    private static void updateReceipt() {
+    private void updateReceipt() {
         System.out.print("Enter payment method ID to update: ");
         int receiptID = scanner.nextInt();
         scanner.nextLine();
@@ -108,7 +113,7 @@ public class ReceiptUI {
         }
     }
 
-    private static void deletePaymentMethod() {
+    private void deletePaymentMethod() {
         System.out.print("Enter payment method ID to delete: ");
         int paymentMethodID = scanner.nextInt();
         scanner.nextLine();

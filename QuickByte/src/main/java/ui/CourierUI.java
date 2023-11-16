@@ -3,6 +3,7 @@ package ui;
 import controller.CourierController;
 import domain.Courier;
 import domain.User;
+import repo.inMemory.CourierRepo;
 import repo.inMemory.InMemoryRepo;
 
 import java.util.List;
@@ -10,10 +11,14 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class CourierUI {
-    private static final CourierController courierController = new CourierController(new InMemoryRepo<>());
+    private static final CourierController courierController = CourierController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public CourierUI() {
+        courierController.setRepository(CourierRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create Courier");
@@ -48,18 +53,25 @@ public class CourierUI {
         }
     }
 
-    private static void createCourier() {
+    private void createCourier() {
         System.out.print("Enter courier info\n");
-        User user = UserUI.createUser();
+        System.out.print("Enter first name: ");
+        String firstName = scanner.nextLine();
+        System.out.println("Enter last name: ");
+        String lastName = scanner.nextLine();
+        System.out.println("Enter address ID: ");
+        int addressID = scanner.nextInt();
+        System.out.print("Enter phone number: ");
+        String phoneNumber = scanner.nextLine();
         System.out.print("Enter courier vehicle paymentType: ");
         String vehicleType = scanner.nextLine();
 
-        Courier newCourier = new Courier(user.getUserID(), user.getAddressID(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(), vehicleType);
+        Courier newCourier = new Courier(0, addressID, firstName, lastName, phoneNumber, vehicleType);
         Courier createdCourier = courierController.createEntity(newCourier);
         System.out.println("Courier created with ID: " + createdCourier.getUserID());
     }
 
-    private static void viewCouriers() {
+    private void viewCouriers() {
         System.out.println("Couriers:");
         List<Courier> couriers = courierController.getAllEntities();
         for (Courier courier : couriers) {
@@ -70,7 +82,7 @@ public class CourierUI {
         }
     }
 
-    private static void updateCourier() {
+    private void updateCourier() {
         System.out.print("Enter courier ID to update: ");
         int courierID = scanner.nextInt();
         scanner.nextLine();
@@ -78,11 +90,19 @@ public class CourierUI {
         Optional<Courier> existingCourier = courierController.getEntityById(courierID);
         if (existingCourier.isPresent()) {
             System.out.print("Enter new courier info\n");
-            User user = UserUI.updateUser();
+
+            System.out.print("Enter new first name: ");
+            String firstName = scanner.nextLine();
+            System.out.print("Enter new last name: ");
+            String lastName = scanner.nextLine();
+            System.out.print("Enter new address\n");
+            int addressID = scanner.nextInt();
+            System.out.print("Enter new phone number: ");
+            String phoneNumber = scanner.nextLine();
             System.out.print("Enter new courier vehicle paymentType: ");
             String vehicleType = scanner.nextLine();
 
-            Courier updatedCourier = new Courier(user.getUserID(), user.getAddressID(), user.getFirstName(), user.getLastName(), user.getPhoneNumber(), vehicleType);
+            Courier updatedCourier = new Courier(courierID, addressID, firstName, lastName, phoneNumber, vehicleType);
             courierController.updateEntity(updatedCourier);
             System.out.println("Courier updated successfully.");
         } else {
@@ -90,7 +110,7 @@ public class CourierUI {
         }
     }
 
-    private static void deleteCourier() {
+    private void deleteCourier() {
         System.out.print("Enter courier ID to delete: ");
         int courierID = scanner.nextInt();
         scanner.nextLine();

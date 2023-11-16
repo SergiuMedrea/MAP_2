@@ -2,17 +2,21 @@ package ui;
 
 import controller.AddressController;
 import domain.Address;
-import repo.inMemory.InMemoryRepo;
+import repo.inMemory.AddressRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class AddressUI {
-    private static final AddressController addressController = new AddressController(new InMemoryRepo<>());
+    private static final AddressController addressController = AddressController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public AddressUI() {
+        addressController.setRepository(AddressRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create Address");
@@ -47,7 +51,7 @@ public class AddressUI {
         }
     }
 
-    public static void createAddress() {
+    public void createAddress() {
         System.out.print("Enter street: ");
         String street = scanner.nextLine();
         System.out.print("Enter postal code: ");
@@ -63,7 +67,7 @@ public class AddressUI {
         System.out.println("Address created with ID: " + createdAddress.getAddressID());
     }
 
-    private static void viewAddresses() {
+    private void viewAddresses() {
         System.out.println("Addresses:");
         List<Address> addresses = addressController.getAllEntities();
         addresses.forEach(address -> {
@@ -75,7 +79,7 @@ public class AddressUI {
         });
     }
 
-    public static void updateAddress() {
+    public void updateAddress() {
         System.out.print("Enter address ID to update: ");
         int addressID = scanner.nextInt();
         scanner.nextLine();
@@ -100,7 +104,7 @@ public class AddressUI {
         }
     }
 
-    private static void deleteAddress() {
+    private void deleteAddress() {
         System.out.print("Enter address ID to delete: ");
         int addressID = scanner.nextInt();
         scanner.nextLine();

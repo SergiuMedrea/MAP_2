@@ -4,7 +4,15 @@ import domain.MenuItem;
 import repo.inMemory.InMemoryRepo;
 
 public class MenuItemController extends EntityController<MenuItem>{
-    public MenuItemController(InMemoryRepo<MenuItem> repository) {
-        super(repository);
+    private static MenuItemController instance = null;
+
+    private MenuItemController() {}
+
+    public static MenuItemController getInstance() {
+        if (instance == null) {
+            instance = new MenuItemController();
+        }
+
+        return instance;
     }
 }

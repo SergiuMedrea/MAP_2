@@ -2,6 +2,7 @@ package ui;
 
 import controller.DiscountController;
 import domain.Discount;
+import repo.inMemory.DiscountRepo;
 import repo.inMemory.InMemoryRepo;
 
 import java.sql.Date;
@@ -10,10 +11,14 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class DiscountUI {
-    private static final DiscountController discountController = new DiscountController(new InMemoryRepo<>());
+    private static final DiscountController discountController = DiscountController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public DiscountUI() {
+        discountController.setRepository(DiscountRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create Promotion");
@@ -48,7 +53,7 @@ public class DiscountUI {
         }
     }
 
-    private static void createPromotion() {
+    private void createPromotion() {
         System.out.print("Enter promotion name: ");
         String name = scanner.nextLine();
         System.out.print("Enter promotion description: ");
@@ -72,7 +77,7 @@ public class DiscountUI {
         System.out.println("Promotion created with ID: " + createdDiscount.getDiscountID());
     }
 
-    private static void viewPromotions() {
+    private void viewPromotions() {
         System.out.println("Promotions:");
         List<Discount> discounts = discountController.getAllEntities();
         for (Discount discount : discounts) {
@@ -86,7 +91,7 @@ public class DiscountUI {
         }
     }
 
-    private static void updatePromotion() {
+    private void updatePromotion() {
         System.out.print("Enter promotion ID to update: ");
         int promotionID = scanner.nextInt();
         scanner.nextLine();
@@ -118,7 +123,7 @@ public class DiscountUI {
         }
     }
 
-    private static void deletePromotion() {
+    private void deletePromotion() {
         System.out.print("Enter promotion ID to delete: ");
         int promotionID = scanner.nextInt();
         scanner.nextLine();

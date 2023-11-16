@@ -3,16 +3,21 @@ package ui;
 import controller.ReviewController;
 import domain.Review;
 import repo.inMemory.InMemoryRepo;
+import repo.inMemory.ReviewRepo;
 
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.List;
 
 public class ReviewUI {
-    private static final ReviewController reviewController = new ReviewController(new InMemoryRepo<>());
+    private static final ReviewController reviewController = ReviewController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public ReviewUI() {
+        reviewController.setRepository(ReviewRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create Review");
@@ -47,7 +52,7 @@ public class ReviewUI {
         }
     }
 
-    private static void createReview() {
+    private void createReview() {
         System.out.print("Enter rating (1-5): ");
         int rating = scanner.nextInt();
         scanner.nextLine();
@@ -65,7 +70,7 @@ public class ReviewUI {
         System.out.println("Review created with ID: " + createdReview.getReviewID());
     }
 
-    private static void viewReviews() {
+    private void viewReviews() {
         System.out.println("Reviews:");
         List<Review> reviews = reviewController.getAllEntities();
         for (Review review : reviews) {
@@ -77,7 +82,7 @@ public class ReviewUI {
         }
     }
 
-    private static void updateReview() {
+    private void updateReview() {
         System.out.print("Enter review ID to update: ");
         int reviewID = scanner.nextInt();
         scanner.nextLine();
@@ -104,7 +109,7 @@ public class ReviewUI {
         }
     }
 
-    private static void deleteReview() {
+    private void deleteReview() {
         System.out.print("Enter review ID to delete: ");
         int reviewID = scanner.nextInt();
         scanner.nextLine();

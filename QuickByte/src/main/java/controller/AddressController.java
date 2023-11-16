@@ -4,7 +4,15 @@ import domain.Address;
 import repo.inMemory.InMemoryRepo;
 
 public class AddressController extends EntityController<Address>{
-    public AddressController(InMemoryRepo<Address> repository) {
-        super(repository);
+    private static AddressController instance = null;
+
+    private AddressController() {}
+
+    public static AddressController getInstance() {
+        if (instance == null) {
+            instance = new AddressController();
+        }
+
+        return instance;
     }
 }

@@ -2,10 +2,18 @@ package repo.inMemory;
 
 import domain.User;
 
-import java.util.List;
-import java.util.Optional;
-
 public class UserRepo extends InMemoryRepo<User> {
+    private static UserRepo instance = null;
 
+    private UserRepo() {
+    }
+
+    public static UserRepo getInstance() {
+        if (instance == null) {
+            instance = new UserRepo();
+        }
+
+        return instance;
+    }
 
 }

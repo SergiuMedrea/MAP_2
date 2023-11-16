@@ -3,6 +3,7 @@ package ui;
 import controller.OrderController;
 import domain.Order;
 import repo.inMemory.InMemoryRepo;
+import repo.inMemory.OrderRepo;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -10,10 +11,14 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class OrderUI {
-    private static final OrderController orderController = new OrderController(new InMemoryRepo<>());
+    private static final OrderController orderController = OrderController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public OrderUI() {
+        orderController.setRepository(OrderRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create Order");
@@ -48,7 +53,7 @@ public class OrderUI {
         }
     }
 
-    public static void createOrder() {
+    public void createOrder() {
         System.out.print("Enter order date (YYYY-MM-DD): ");
         String dateString = scanner.nextLine();
         Timestamp date = Timestamp.valueOf(dateString);
@@ -68,7 +73,7 @@ public class OrderUI {
         System.out.println("Order created with ID: " + createdOrder.getOrderID());
     }
 
-    private static void viewOrders() {
+    private void viewOrders() {
         System.out.println("Orders:");
         List<Order> orders = orderController.getAllEntities();
         for (Order order : orders) {
@@ -80,7 +85,7 @@ public class OrderUI {
         }
     }
 
-    private static void updateOrder() {
+    private void updateOrder() {
         System.out.print("Enter order ID to update: ");
         int orderID = scanner.nextInt();
         scanner.nextLine();
@@ -108,7 +113,7 @@ public class OrderUI {
         }
     }
 
-    private static void deleteOrder() {
+    private void deleteOrder() {
         System.out.print("Enter order ID to delete: ");
         int orderID = scanner.nextInt();
         scanner.nextLine();

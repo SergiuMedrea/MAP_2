@@ -7,8 +7,20 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderMenuItemRepo {
+    private static OrderMenuItemRepo instance = null;
     private final List<OrderMenuItem> orderMenuItems = new ArrayList<>();
     private int nextID = 1;
+
+    private OrderMenuItemRepo() {
+    }
+
+    public static OrderMenuItemRepo getInstance() {
+        if (instance == null) {
+            instance = new OrderMenuItemRepo();
+        }
+
+        return instance;
+    }
 
     /**
      * Create a new order menu item and add it to the repository

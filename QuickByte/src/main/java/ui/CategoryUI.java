@@ -2,17 +2,21 @@ package ui;
 
 import controller.CategoryController;
 import domain.Category;
-import repo.inMemory.InMemoryRepo;
+import repo.inMemory.CategoryRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class CategoryUI {
-    private static final CategoryController categoryController = new CategoryController(new InMemoryRepo<>());
+    private static final CategoryController categoryController = CategoryController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public CategoryUI() {
+        categoryController.setRepository(CategoryRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create Category");
@@ -47,7 +51,7 @@ public class CategoryUI {
         }
     }
 
-    private static void createCategory() {
+    private void createCategory() {
         System.out.print("Enter category name: ");
         String name = scanner.nextLine();
         System.out.print("Enter category description: ");
@@ -59,7 +63,7 @@ public class CategoryUI {
         System.out.println("Category created with ID: " + createdCategory.getCategoryID());
     }
 
-    private static void viewCategories() {
+    private void viewCategories() {
         System.out.println("Categories:");
         List<Category> categories = categoryController.getAllEntities();
         for (Category category : categories) {
@@ -69,7 +73,7 @@ public class CategoryUI {
         }
     }
 
-    private static void updateCategory() {
+    private void updateCategory() {
         System.out.print("Enter category ID to update: ");
         int categoryID = scanner.nextInt();
         scanner.nextLine();
@@ -89,7 +93,7 @@ public class CategoryUI {
         }
     }
 
-    private static void deleteCategory() {
+    private void deleteCategory() {
         System.out.print("Enter category ID to delete: ");
         int categoryID = scanner.nextInt();
         scanner.nextLine();

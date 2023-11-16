@@ -3,16 +3,21 @@ package ui;
 import controller.RestaurantController;
 import domain.Restaurant;
 import repo.inMemory.InMemoryRepo;
+import repo.inMemory.RestaurantRepo;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class RestaurantUI {
-    private static final RestaurantController restaurantController = new RestaurantController(new InMemoryRepo<>());
+    private static final RestaurantController restaurantController = RestaurantController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public RestaurantUI() {
+        restaurantController.setRepository(RestaurantRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create Restaurant");
@@ -47,7 +52,7 @@ public class RestaurantUI {
         }
     }
 
-    private static void createRestaurant() {
+    private void createRestaurant() {
         System.out.print("Enter restaurant ID: ");
         int restaurantID = scanner.nextInt();
         System.out.print("Enter address ID: ");
@@ -60,7 +65,7 @@ public class RestaurantUI {
         System.out.println("Restaurant created with ID: " + createdRestaurant.getRestaurantID());
     }
 
-    private static void viewRestaurants() {
+    private void viewRestaurants() {
         System.out.println("Restaurants:");
         List<Restaurant> restaurants = restaurantController.getAllEntities();
         for (Restaurant restaurant : restaurants) {
@@ -70,7 +75,7 @@ public class RestaurantUI {
         }
     }
 
-    private static void updateRestaurant() {
+    private void updateRestaurant() {
         System.out.print("Enter restaurant ID to update: ");
         int restaurantID = scanner.nextInt();
         scanner.nextLine();
@@ -90,7 +95,7 @@ public class RestaurantUI {
         }
     }
 
-    private static void deleteRestaurant() {
+    private void deleteRestaurant() {
         System.out.print("Enter restaurant ID to delete: ");
         int restaurantID = scanner.nextInt();
         scanner.nextLine();

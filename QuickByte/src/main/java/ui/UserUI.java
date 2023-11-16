@@ -2,17 +2,20 @@ package ui;
 
 import controller.UserController;
 import domain.User;
-import repo.inMemory.InMemoryRepo;
 import repo.inMemory.UserRepo;
 
 import java.util.Optional;
 import java.util.Scanner;
 
 public class UserUI {
-    private static final UserController userController = new UserController(new InMemoryRepo<>());
+    private static final UserController userController = UserController.getInstance();
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void run() {
+    public UserUI() {
+        userController.setRepository(UserRepo.getInstance());
+    }
+
+    public void run() {
         boolean exit = false;
         while (!exit) {
             System.out.println("1. Create User");
@@ -47,7 +50,7 @@ public class UserUI {
         }
     }
 
-    public static User createUser() {
+    public User createUser() {
         System.out.print("Enter first name: ");
         String firstName = scanner.nextLine();
         System.out.println("Enter last name: ");
@@ -65,7 +68,7 @@ public class UserUI {
         return createdUser;
     }
 
-    private static void viewUsers() {
+    private void viewUsers() {
         System.out.println("Users:");
         for (User user : userController.getAllEntities()) {
             System.out.println("ID: " + user.getUserID() +
@@ -75,7 +78,7 @@ public class UserUI {
         }
     }
 
-    public static User updateUser() {
+    public User updateUser() {
         System.out.print("Enter user ID to update: ");
         int userID = scanner.nextInt();
         scanner.nextLine();
@@ -101,7 +104,7 @@ public class UserUI {
         return updatedUser;
     }
 
-    private static void deleteUser() {
+    private void deleteUser() {
         System.out.print("Enter user ID to delete: ");
         int userID = scanner.nextInt();
         scanner.nextLine();

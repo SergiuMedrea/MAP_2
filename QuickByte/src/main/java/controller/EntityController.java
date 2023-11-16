@@ -7,12 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class EntityController<T extends Identifiable> {
-    private final InMemoryRepo<T> repository;
+    private InMemoryRepo<T> repository;
 
-    public EntityController(InMemoryRepo<T> repository) {
+    public void setRepository(InMemoryRepo<T> repository) {
         this.repository = repository;
     }
-
     public T createEntity(T entity) {
         return repository.create(entity);
     }
