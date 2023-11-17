@@ -34,4 +34,8 @@ public class EntityObservable<T extends Identifiable> {
             observer.onEntityDeleted(entityId);
         }
     }
+
+    public List<EntityObserver<T>> getObservers() {
+        return observers;
+    }
 }
