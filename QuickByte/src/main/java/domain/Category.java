@@ -1,6 +1,12 @@
 package domain;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class Category implements Identifiable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int categoryID;
     private String name;
     private String description;

@@ -17,7 +17,6 @@ public class MySQLConnection {
             // Open a connection
             Connection connection = DriverManager.getConnection(url, user, password);
 
-            // Do something with the connection (e.g., execute SQL queries)
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM Users");
 

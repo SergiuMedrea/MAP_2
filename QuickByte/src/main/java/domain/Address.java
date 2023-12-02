@@ -1,6 +1,12 @@
 package domain;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 public class Address implements Identifiable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int addressID;
     private String street;
     private String postalCode;
