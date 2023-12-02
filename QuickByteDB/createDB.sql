@@ -118,3 +118,16 @@ create table Reviews
     foreign key (userID) references Users (userID),
     foreign key (storeID) references Restaurants (storeID)
 );
+
+delete from addresses;
+delete from categories;
+delete from couriers;
+delete from discounts;
+delete from grocerystores;
+delete from menuitems;
+delete from ordermenuitems;
+delete from orders;
+delete from receipts;
+delete from restaurants;
+delete from reviews;
+delete from users;
