@@ -70,5 +70,7 @@ public class CourierService {
                 !Objects.equals(courier.getVehicleType(), vehicleType)) {
             courier.setVehicleType(vehicleType);
         }
+
+        courierRepository.save(courier);
     }
 }

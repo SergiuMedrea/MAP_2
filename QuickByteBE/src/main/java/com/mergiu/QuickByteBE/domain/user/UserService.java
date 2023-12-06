@@ -69,5 +69,6 @@ public class UserService {
             user.setPhoneNumber(phoneNumber);
         }
 
+        userRepository.save(user);
     }
 }
