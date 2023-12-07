@@ -3,10 +3,7 @@ package com.mergiu.QuickByteBE.domain.restaurant;
 import com.mergiu.QuickByteBE.domain.address.Address;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Entity
 @Transactional
@@ -18,15 +15,16 @@ import lombok.RequiredArgsConstructor;
 public class Restaurant {
     @Id
     @SequenceGenerator(
-            name = "category_sequence",
-            sequenceName = "category_sequence",
+            name = "restaurant_sequence",
+            sequenceName = "restaurant_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "category_sequence"
+            generator = "restaurant_sequence"
     )
     private Long restaurantId;
+    @NonNull
     private String name;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_address_id", referencedColumnName = "addressId")

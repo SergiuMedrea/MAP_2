@@ -35,9 +35,6 @@ public class Order {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "userId")
     private User userID;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_courier_id", referencedColumnName = "courierId")
-    private Courier courierID;
     @NonNull
     private String orderStatus;
     @NonNull
@@ -47,8 +44,8 @@ public class Order {
     @ManyToMany
     @JoinTable(
             name = "order_menuitem",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "menuitem_id")
+            joinColumns = @JoinColumn(name = "fk_order_id"),
+            inverseJoinColumns = @JoinColumn(name = "fk_menuitem_id")
     )
     private Set<MenuItem> menuItems;
 }
