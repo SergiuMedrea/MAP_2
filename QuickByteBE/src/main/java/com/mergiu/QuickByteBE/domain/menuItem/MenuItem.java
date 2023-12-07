@@ -4,42 +4,110 @@ import com.mergiu.QuickByteBE.domain.category.Category;
 import com.mergiu.QuickByteBE.domain.order.Order;
 import com.mergiu.QuickByteBE.domain.restaurant.Restaurant;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
-import lombok.*;
 import javax.validation.constraints.Min;
 import java.util.Set;
 
+
 @Entity
-@Transactional
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "menuItems")
 public class MenuItem {
+
     @Id
     @SequenceGenerator(
-            name = "category_sequence",
-            sequenceName = "category_sequence",
+            name = "menuitem_sequence",
+            sequenceName = "menuitem_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "category_sequence"
+            generator = "menuitem_sequence"
     )
     private Long menuItemId;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "restaurantId")
     private Restaurant restaurantID;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_category_id", referencedColumnName = "categoryId")
     private Category categoryID;
-    @NonNull
+
     private String name;
+
     @Min(value = 0, message = "Price must be greater than or equal to 0")
     private int price;
-    @NonNull
+
     private String description;
+
     @ManyToMany(mappedBy = "menuItems")
     private Set<Order> menuOrders;
+
+    public MenuItem() {
+    }
+
+    public MenuItem(Restaurant restaurantID, Category categoryID, String name, int price, String description) {
+        this.restaurantID = restaurantID;
+        this.categoryID = categoryID;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
+
+    public Long getMenuItemId() {
+        return menuItemId;
+    }
+
+    public void setMenuItemId(Long menuItemId) {
+        this.menuItemId = menuItemId;
+    }
+
+    public Restaurant getRestaurantID() {
+        return restaurantID;
+    }
+
+    public void setRestaurantID(Restaurant restaurantID) {
+        this.restaurantID = restaurantID;
+    }
+
+    public Category getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(Category categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Set<Order> getMenuOrders() {
+        return menuOrders;
+    }
+
+    public void setMenuOrders(Set<Order> menuOrders) {
+        this.menuOrders = menuOrders;
+    }
 }
+

@@ -2,17 +2,11 @@ package com.mergiu.QuickByteBE.domain.address;
 
 import com.mergiu.QuickByteBE.domain.user.User;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
-import lombok.*;
 
 @Entity
-@Transactional
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "addresses")
 public class Address {
+
     @Id
     @SequenceGenerator(
             name = "address_sequence",
@@ -24,14 +18,63 @@ public class Address {
             generator = "address_sequence"
     )
     private Long addressId;
-    @NonNull
-    private String Street;
-    @NonNull
+    private String street;
     private String postalCode;
-    @NonNull
     private String city;
-    @NonNull
     private String country;
+
     @OneToOne(mappedBy = "address")
     private User user;
+
+    public Address() {
+    }
+
+    public Address(String street, String postalCode, String city, String country) {
+        this.street = street;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.country = country;
+    }
+
+
+    public Long getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
 }

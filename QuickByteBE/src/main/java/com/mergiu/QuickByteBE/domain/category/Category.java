@@ -1,17 +1,11 @@
 package com.mergiu.QuickByteBE.domain.category;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
-import lombok.*;
 
 @Entity
-@Transactional
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
 @Table(name = "categories")
 public class Category {
+
     @Id
     @SequenceGenerator(
             name = "category_sequence",
@@ -23,8 +17,40 @@ public class Category {
             generator = "category_sequence"
     )
     private Long categoryId;
-    @NonNull
     private String name;
-    @NonNull
     private String description;
+
+    public Category() {
+    }
+
+    public Category(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
+
