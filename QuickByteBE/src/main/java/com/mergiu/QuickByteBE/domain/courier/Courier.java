@@ -5,7 +5,6 @@ import com.mergiu.QuickByteBE.domain.user.User;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "couriers")
 public class Courier extends User {
 
     @Id
