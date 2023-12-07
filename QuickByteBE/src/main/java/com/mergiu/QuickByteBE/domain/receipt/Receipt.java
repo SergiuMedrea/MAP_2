@@ -28,10 +28,10 @@ public class Receipt {
     )
     private Long receiptId;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_order_id", referencedColumnName = "order_id")
+    @JoinColumn(name = "fk_order_id", referencedColumnName = "orderId")
     private Order order;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "fk_user_id", referencedColumnName = "userId")
     private User user;
     @Min(value = 0, message = "Amount must be greater than or equal to 0")
     private int amount;

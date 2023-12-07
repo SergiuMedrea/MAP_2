@@ -18,13 +18,13 @@ import java.util.Date;
 public class Discount {
     @Id
     @SequenceGenerator(
-            name = "category_sequence",
-            sequenceName = "category_sequence",
+            name = "discount_sequence",
+            sequenceName = "discount_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "category_sequence"
+            generator = "discount_sequence"
     )
     private Long discountId;
     @ManyToOne(cascade = CascadeType.ALL)

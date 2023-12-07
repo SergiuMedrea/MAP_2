@@ -30,13 +30,13 @@ public class Review {
     )
     private Long reviewId;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "fk_user_id", referencedColumnName = "userId")
     private User user;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_courier_id", referencedColumnName = "courier_id")
+    @JoinColumn(name = "fk_courier_id", referencedColumnName = "courierId")
     private Courier courier;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "restaurant_id")
+    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "restaurantId")
     private Restaurant restaurant;
     @Min(value = 0, message = "Rating must be greater than or equal to 0")
     @Max(value = 5, message = "Rating must be less than or equal to 5")
