@@ -5,19 +5,9 @@ import com.mergiu.QuickByteBE.domain.user.User;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "couriers")
+//@PrimaryKeyJoinColumn(name = "courierId")
 public class Courier extends User {
-
-    @Id
-    @SequenceGenerator(
-            name = "courier_sequence",
-            sequenceName = "courier_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "courier_sequence"
-    )
-    private Long courierId;
 
     private String vehicleType;
 
@@ -29,14 +19,6 @@ public class Courier extends User {
         this.vehicleType = vehicleType;
     }
 
-
-    public Long getCourierId() {
-        return courierId;
-    }
-
-    public void setCourierId(Long courierId) {
-        this.courierId = courierId;
-    }
 
     public String getVehicleType() {
         return vehicleType;

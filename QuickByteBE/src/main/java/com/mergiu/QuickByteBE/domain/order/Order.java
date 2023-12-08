@@ -29,7 +29,7 @@ public class Order {
     private Restaurant restaurantID;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_user_id", referencedColumnName = "userId")
+    @JoinColumn(name = "fk_user_id", referencedColumnName = "id")
     private User userID;
 
     private String orderStatus;

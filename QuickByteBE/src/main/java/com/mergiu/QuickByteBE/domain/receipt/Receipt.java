@@ -28,7 +28,7 @@ public class Receipt {
     private Order order;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_user_id", referencedColumnName = "userId")
+    @JoinColumn(name = "fk_user_id", referencedColumnName = "id")
     private User user;
 
     @Min(value = 0, message = "Amount must be greater than or equal to 0")
