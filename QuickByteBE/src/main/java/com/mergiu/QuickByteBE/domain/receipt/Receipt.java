@@ -98,5 +98,17 @@ public class Receipt {
     public void setAccountInformation(String accountInformation) {
         this.accountInformation = accountInformation;
     }
+
+    @Override
+    public String toString() {
+        return "Receipt{" +
+                "id=" + id +
+                ", order=" + order +
+                ", user=" + user +
+                ", amount=" + amount +
+                ", paymentType='" + paymentType + '\'' +
+                ", accountInformation='" + accountInformation + '\'' +
+                '}';
+    }
 }
 
