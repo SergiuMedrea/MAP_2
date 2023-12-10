@@ -1,5 +1,6 @@
 package com.mergiu.QuickByteBE.domain.order;
 
+import com.mergiu.QuickByteBE.domain.address.Address;
 import com.mergiu.QuickByteBE.domain.menuItem.MenuItem;
 import com.mergiu.QuickByteBE.domain.restaurant.Restaurant;
 import com.mergiu.QuickByteBE.domain.user.User;
@@ -26,11 +27,15 @@ public class Order {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "id")
-    private Restaurant restaurantID;
+    private Restaurant restaurant;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "id")
-    private User userID;
+    private User user;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_address_id", referencedColumnName = "id")
+    private Address address;
 
     private String orderStatus;
 
@@ -49,9 +54,9 @@ public class Order {
     public Order() {
     }
 
-    public Order(Restaurant restaurantID, User userID, String orderStatus, Timestamp orderTime, Timestamp deliveryTime, Set<MenuItem> menuItems) {
-        this.restaurantID = restaurantID;
-        this.userID = userID;
+    public Order(Restaurant restaurant, User user, String orderStatus, Timestamp orderTime, Timestamp deliveryTime, Set<MenuItem> menuItems) {
+        this.restaurant = restaurant;
+        this.user = user;
         this.orderStatus = orderStatus;
         this.orderTime = orderTime;
         this.deliveryTime = deliveryTime;
@@ -67,20 +72,20 @@ public class Order {
         this.id = orderId;
     }
 
-    public Restaurant getRestaurantID() {
-        return restaurantID;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurantID(Restaurant restaurantID) {
-        this.restaurantID = restaurantID;
+    public void setRestaurant(Restaurant restaurantID) {
+        this.restaurant = restaurantID;
     }
 
-    public User getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(User userID) {
-        this.userID = userID;
+    public void setUser(User userID) {
+        this.user = userID;
     }
 
     public String getOrderStatus() {
