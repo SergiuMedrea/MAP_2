@@ -107,5 +107,18 @@ public class Discount {
     public void setDiscountPercentage(int discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
+
+    @Override
+    public String toString() {
+        return "Discount{" +
+                "id=" + id +
+                ", restaurantID=" + restaurantID +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", discountPercentage=" + discountPercentage +
+                '}';
+    }
 }
 

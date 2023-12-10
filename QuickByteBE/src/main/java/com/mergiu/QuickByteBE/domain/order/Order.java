@@ -119,5 +119,19 @@ public class Order {
     public void setMenuItems(Set<MenuItem> menuItems) {
         this.menuItems = menuItems;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", restaurant=" + restaurant +
+                ", user=" + user +
+                ", address=" + address +
+                ", orderStatus='" + orderStatus + '\'' +
+                ", orderTime=" + orderTime +
+                ", deliveryTime=" + deliveryTime +
+                ", menuItems=" + menuItems +
+                '}';
+    }
 }
 

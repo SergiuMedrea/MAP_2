@@ -109,5 +109,18 @@ public class MenuItem {
     public void setMenuOrders(Set<Order> menuOrders) {
         this.menuOrders = menuOrders;
     }
+
+    @Override
+    public String toString() {
+        return "MenuItem{" +
+                "id=" + id +
+                ", restaurantID=" + restaurantID +
+                ", categoryID=" + categoryID +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", menuOrders=" + menuOrders +
+                '}';
+    }
 }
 

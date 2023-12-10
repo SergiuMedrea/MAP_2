@@ -1,7 +1,11 @@
 package com.mergiu.QuickByteBE.ui;
 
 import com.mergiu.QuickByteBE.domain.address.AddressUI;
+import com.mergiu.QuickByteBE.domain.category.CategoryUI;
 import com.mergiu.QuickByteBE.domain.courier.CourierUI;
+import com.mergiu.QuickByteBE.domain.discount.DiscountUI;
+import com.mergiu.QuickByteBE.domain.menuItem.MenuItemUI;
+import com.mergiu.QuickByteBE.domain.order.OrderUI;
 import com.mergiu.QuickByteBE.domain.receipt.ReceiptUI;
 import com.mergiu.QuickByteBE.domain.restaurant.RestaurantUI;
 import com.mergiu.QuickByteBE.domain.review.ReviewUI;
@@ -20,15 +24,25 @@ public class MainUI {
     private final ReceiptUI receiptUI;
     private final RestaurantUI restaurantUI;
     private final ReviewUI reviewUI;
+    private final MenuItemUI menuItemUI;
+    private final OrderUI orderUI;
+    private final CategoryUI categoryUI;
+    private final DiscountUI discountUI;
+
+
 
     @Autowired
-    public MainUI(UserUI userUI, CourierUI courierUI, AddressUI addressUI, ReceiptUI receiptUI, RestaurantUI restaurantUI, ReviewUI reviewUI) {
+    public MainUI(UserUI userUI, CourierUI courierUI, AddressUI addressUI, ReceiptUI receiptUI, RestaurantUI restaurantUI, ReviewUI reviewUI, MenuItemUI menuItemUI, OrderUI orderUI, CategoryUI categoryUI, DiscountUI discountUI) {
         this.userUI = userUI;
         this.courierUI = courierUI;
         this.addressUI = addressUI;
         this.receiptUI = receiptUI;
         this.restaurantUI = restaurantUI;
         this.reviewUI = reviewUI;
+        this.menuItemUI = menuItemUI;
+        this.orderUI = orderUI;
+        this.categoryUI = categoryUI;
+        this.discountUI = discountUI;
     }
 
     public void run() {
@@ -42,7 +56,11 @@ public class MainUI {
             System.out.println("4. Receipt Menu");
             System.out.println("5. Restaurant Menu");
             System.out.println("6. Review Menu");
-            System.out.println("7. Exit");
+            System.out.println("7. Menu Item Menu");
+            System.out.println("8. Order Menu");
+            System.out.println("9. Category Menu");
+            System.out.println("10. Discount Menu");
+            System.out.println("0. Exit");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline
@@ -67,6 +85,18 @@ public class MainUI {
                     reviewUI.run();
                     break;
                 case 7:
+                    menuItemUI.run();
+                    break;
+                case 8:
+                    orderUI.run();
+                    break;
+                case 9:
+                    categoryUI.run();
+                    break;
+                case 10:
+                    discountUI.run();
+                    break;
+                case 0:
                     System.out.println("Exiting application.");
                     System.exit(0);
                 default:
