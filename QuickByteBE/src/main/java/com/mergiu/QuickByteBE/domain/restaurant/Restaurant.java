@@ -17,12 +17,12 @@ public class Restaurant {
             strategy = GenerationType.SEQUENCE,
             generator = "restaurant_sequence"
     )
-    private Long restaurantId;
+    private Long id;
 
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_address_id", referencedColumnName = "addressId")
+    @JoinColumn(name = "fk_address_id", referencedColumnName = "id")
     private Address address;
 
     public Restaurant() {
@@ -34,12 +34,12 @@ public class Restaurant {
     }
 
 
-    public Long getRestaurantId() {
-        return restaurantId;
+    public Long getId() {
+        return id;
     }
 
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setId(Long restaurantId) {
+        this.id = restaurantId;
     }
 
     public String getName() {

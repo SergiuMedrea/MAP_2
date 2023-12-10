@@ -25,9 +25,9 @@ public class OrderService {
     }
 
     public void addNewOrder(Order order) {
-        Optional<Order> orderOptional = orderRepository.findById(order.getOrderId());
+        Optional<Order> orderOptional = orderRepository.findById(order.getId());
         if(orderOptional.isPresent())
-            throw new IllegalStateException("Order with id " + order.getOrderId() + " already exists");
+            throw new IllegalStateException("Order with id " + order.getId() + " already exists");
 
         order.setOrderStatus("placed");
         order.setOrderTime(new Timestamp(System.currentTimeMillis()));

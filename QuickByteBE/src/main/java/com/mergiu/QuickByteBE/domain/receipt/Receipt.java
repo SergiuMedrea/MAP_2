@@ -21,10 +21,10 @@ public class Receipt {
             strategy = GenerationType.SEQUENCE,
             generator = "receipt_sequence"
     )
-    private Long receiptId;
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_order_id", referencedColumnName = "orderId")
+    @JoinColumn(name = "fk_order_id", referencedColumnName = "id")
     private Order order;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -51,12 +51,12 @@ public class Receipt {
 
     // Getters and Setters
 
-    public Long getReceiptId() {
-        return receiptId;
+    public Long getId() {
+        return id;
     }
 
-    public void setReceiptId(Long receiptId) {
-        this.receiptId = receiptId;
+    public void setId(Long receiptId) {
+        this.id = receiptId;
     }
 
     public Order getOrder() {

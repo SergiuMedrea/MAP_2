@@ -22,14 +22,14 @@ public class MenuItem {
             strategy = GenerationType.SEQUENCE,
             generator = "menuitem_sequence"
     )
-    private Long menuItemId;
+    private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "restaurantId")
+    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "id")
     private Restaurant restaurantID;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_category_id", referencedColumnName = "categoryId")
+    @JoinColumn(name = "fk_category_id", referencedColumnName = "id")
     private Category categoryID;
 
     private String name;
@@ -54,12 +54,12 @@ public class MenuItem {
     }
 
 
-    public Long getMenuItemId() {
-        return menuItemId;
+    public Long getId() {
+        return id;
     }
 
-    public void setMenuItemId(Long menuItemId) {
-        this.menuItemId = menuItemId;
+    public void setId(Long menuItemId) {
+        this.id = menuItemId;
     }
 
     public Restaurant getRestaurantID() {

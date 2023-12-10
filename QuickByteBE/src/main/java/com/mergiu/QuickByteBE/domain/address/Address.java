@@ -17,7 +17,7 @@ public class Address {
             strategy = GenerationType.SEQUENCE,
             generator = "address_sequence"
     )
-    private Long addressId;
+    private Long id;
     private String street;
     private String postalCode;
     private String city;
@@ -37,12 +37,12 @@ public class Address {
     }
 
 
-    public Long getAddressId() {
-        return addressId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
+    public void setId(Long addressId) {
+        this.id = addressId;
     }
 
     public String getStreet() {

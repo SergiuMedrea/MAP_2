@@ -22,7 +22,7 @@ public class Review {
             strategy = GenerationType.SEQUENCE,
             generator = "review_sequence"
     )
-    private Long reviewId;
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "id")
@@ -33,7 +33,7 @@ public class Review {
     private Courier courier;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "restaurantId")
+    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "id")
     private Restaurant restaurant;
 
     @Min(value = 0, message = "Rating must be greater than or equal to 0")
@@ -54,12 +54,12 @@ public class Review {
     }
 
 
-    public Long getReviewId() {
-        return reviewId;
+    public Long getId() {
+        return id;
     }
 
-    public void setReviewId(Long reviewId) {
-        this.reviewId = reviewId;
+    public void setId(Long reviewId) {
+        this.id = reviewId;
     }
 
     public User getUser() {

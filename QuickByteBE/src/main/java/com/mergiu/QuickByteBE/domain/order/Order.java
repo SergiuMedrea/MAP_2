@@ -22,10 +22,10 @@ public class Order {
             strategy = GenerationType.SEQUENCE,
             generator = "order_sequence"
     )
-    private Long orderId;
+    private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "restaurantId")
+    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "id")
     private Restaurant restaurantID;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -59,12 +59,12 @@ public class Order {
     }
 
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setId(Long orderId) {
+        this.id = orderId;
     }
 
     public Restaurant getRestaurantID() {

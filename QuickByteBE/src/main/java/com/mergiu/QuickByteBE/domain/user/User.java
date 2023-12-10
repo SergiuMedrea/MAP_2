@@ -24,7 +24,7 @@ public class User {
     private String phoneNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_address_id", referencedColumnName = "addressId")
+    @JoinColumn(name = "fk_address_id", referencedColumnName = "id")
     private Address address;
 
     public User() {
@@ -36,7 +36,6 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
-
 
     public Long getId() {
         return id;

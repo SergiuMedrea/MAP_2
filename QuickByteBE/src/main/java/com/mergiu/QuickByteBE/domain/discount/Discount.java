@@ -21,10 +21,10 @@ public class Discount {
             strategy = GenerationType.SEQUENCE,
             generator = "discount_sequence"
     )
-    private Long discountId;
+    private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "restaurantId")
+    @JoinColumn(name = "fk_restaurant_id", referencedColumnName = "id")
     private Restaurant restaurantID;
 
     private String name;
@@ -52,12 +52,12 @@ public class Discount {
     }
 
 
-    public Long getDiscountId() {
-        return discountId;
+    public Long getId() {
+        return id;
     }
 
-    public void setDiscountId(Long discountId) {
-        this.discountId = discountId;
+    public void setId(Long discountId) {
+        this.id = discountId;
     }
 
     public Restaurant getRestaurantID() {
