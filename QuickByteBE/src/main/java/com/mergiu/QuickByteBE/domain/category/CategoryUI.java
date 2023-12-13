@@ -11,10 +11,13 @@ import java.util.Scanner;
 public class CategoryUI implements EntityUI {
 
     private final CategoryService categoryService;
+    private final CategoryFactory categoryFactory;
+
 
     @Autowired
-    public CategoryUI(CategoryService categoryService) {
+    public CategoryUI(CategoryService categoryService, CategoryFactory categoryFactory) {
         this.categoryService = categoryService;
+        this.categoryFactory = categoryFactory;
     }
 
     @Override
@@ -65,7 +68,7 @@ public class CategoryUI implements EntityUI {
         System.out.println("Enter category description:");
         String description = scanner.nextLine();
 
-        Category newCategory = new Category(name, description);
+        Category newCategory = categoryFactory.createCategory(name, description);
         categoryService.addNewCategory(newCategory);
         System.out.println("Category added successfully.");
     }

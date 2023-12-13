@@ -66,5 +66,37 @@ public class Restaurant {
                 ", address=" + address +
                 '}';
     }
+
+    // Builder class
+    public static class Builder {
+        private final Restaurant restaurant;
+
+        public Builder() {
+            this.restaurant = new Restaurant();
+        }
+
+        public Builder withId(Long id) {
+            restaurant.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            restaurant.name = name;
+            return this;
+        }
+
+        public Builder withAddress(Address address) {
+            restaurant.address = address;
+            return this;
+        }
+
+        public Restaurant build() {
+            if (restaurant.name == null || restaurant.name.trim().isEmpty()) {
+                throw new IllegalStateException("Name cannot be null or empty");
+            }
+
+            return restaurant;
+        }
+    }
 }
 

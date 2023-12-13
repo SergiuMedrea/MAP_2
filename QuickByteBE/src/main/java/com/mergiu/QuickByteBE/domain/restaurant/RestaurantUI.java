@@ -63,8 +63,12 @@ public class RestaurantUI implements EntityUI {
         System.out.println("Enter restaurant name:");
         String name = scanner.nextLine();
 
-        Restaurant newRestaurant = new Restaurant(name, null);
-        restaurantService.addNewRestaurant(newRestaurant);
+        Restaurant restaurant = new Restaurant.Builder()
+                .withName(name)
+//                .withAddress(address)
+                .build();
+
+        restaurantService.addNewRestaurant(restaurant);
 
         System.out.println("Restaurant added successfully!");
     }

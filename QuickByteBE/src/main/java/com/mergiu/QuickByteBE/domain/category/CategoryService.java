@@ -22,6 +22,8 @@ public class CategoryService {
     }
 
     public void addNewCategory(Category category) {
+        CategoryFactory.createCategory(category.getName(), category.getDescription());
+
         Optional<Category> categoryOptional = categoryRepository.findByName(category.getName());
 
         if (categoryOptional.isPresent()) {
