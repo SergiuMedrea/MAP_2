@@ -1,6 +1,6 @@
 package com.mergiu.QuickByteBE.domain.address;
 
-import com.mergiu.QuickByteBE.domain.user.User;
+import com.mergiu.QuickByteBE.domain.user.SimpleUser;
 import jakarta.persistence.*;
 
 @Entity
@@ -24,7 +24,7 @@ public class Address {
     private String country;
 
     @OneToOne(mappedBy = "address")
-    private User user;
+    private SimpleUser simpleUser;
 
     public Address() {
     }
@@ -85,7 +85,7 @@ public class Address {
                 ", postalCode='" + postalCode + '\'' +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
-                ", user=" + user +
+                ", user=" + simpleUser +
                 '}';
     }
 }

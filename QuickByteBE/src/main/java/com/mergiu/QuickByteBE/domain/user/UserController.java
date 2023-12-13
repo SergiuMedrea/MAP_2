@@ -17,13 +17,13 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
+    public List<SimpleUser> getUsers() {
         return userService.getUsers();
     }
 
     @PostMapping
-    public void registerNewUser(@RequestBody User user) {
-        userService.addNewUser(user);
+    public void registerNewUser(@RequestBody SimpleUser simpleUser) {
+        userService.addNewUser(simpleUser);
     }
 
     @DeleteMapping(path = "{userId}")

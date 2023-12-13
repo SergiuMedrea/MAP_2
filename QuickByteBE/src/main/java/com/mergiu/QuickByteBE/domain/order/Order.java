@@ -3,7 +3,7 @@ package com.mergiu.QuickByteBE.domain.order;
 import com.mergiu.QuickByteBE.domain.address.Address;
 import com.mergiu.QuickByteBE.domain.menuItem.MenuItem;
 import com.mergiu.QuickByteBE.domain.restaurant.Restaurant;
-import com.mergiu.QuickByteBE.domain.user.User;
+import com.mergiu.QuickByteBE.domain.user.SimpleUser;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -31,7 +31,7 @@ public class Order {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "id")
-    private User user;
+    private SimpleUser simpleUser;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_address_id", referencedColumnName = "id")
@@ -43,7 +43,7 @@ public class Order {
 
     private Timestamp deliveryTime;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "order_menuitem",
             joinColumns = @JoinColumn(name = "fk_order_id"),
@@ -54,13 +54,14 @@ public class Order {
     public Order() {
     }
 
-    public Order(Restaurant restaurant, User user, String orderStatus, Timestamp orderTime, Timestamp deliveryTime, Set<MenuItem> menuItems) {
+    public Order(Restaurant restaurant, SimpleUser simpleUser, Address address, String orderStatus, Timestamp orderTime, Timestamp deliveryTime, Set<MenuItem> menuItems) {
         this.restaurant = restaurant;
-        this.user = user;
+        this.simpleUser = simpleUser;
         this.orderStatus = orderStatus;
         this.orderTime = orderTime;
         this.deliveryTime = deliveryTime;
         this.menuItems = menuItems;
+        this.address = address;
     }
 
 
@@ -80,12 +81,12 @@ public class Order {
         this.restaurant = restaurantID;
     }
 
-    public User getUser() {
-        return user;
+    public SimpleUser getUser() {
+        return simpleUser;
     }
 
-    public void setUser(User userID) {
-        this.user = userID;
+    public void setUser(SimpleUser simpleUserID) {
+        this.simpleUser = simpleUserID;
     }
 
     public String getOrderStatus() {
@@ -125,7 +126,7 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", restaurant=" + restaurant +
-                ", user=" + user +
+                ", user=" + simpleUser +
                 ", address=" + address +
                 ", orderStatus='" + orderStatus + '\'' +
                 ", orderTime=" + orderTime +

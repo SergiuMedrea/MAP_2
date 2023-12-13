@@ -47,6 +47,14 @@ public class MainUI {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\n" +
+                " ██████  ██    ██ ██  ██████ ██   ██ ██████  ██    ██ ████████ ███████ \n" +
+                "██    ██ ██    ██ ██ ██      ██  ██  ██   ██  ██  ██     ██    ██      \n" +
+                "██    ██ ██    ██ ██ ██      █████   ██████    ████      ██    █████   \n" +
+                "██ ▄▄ ██ ██    ██ ██ ██      ██  ██  ██   ██    ██       ██    ██      \n" +
+                " ██████   ██████  ██  ██████ ██   ██ ██████     ██       ██    ███████ \n" +
+                "    ▀▀                                                                 \n" +
+                "                                                                       \n");
 
         while (true) {
             System.out.println("Main Menu:");
@@ -63,7 +71,7 @@ public class MainUI {
             System.out.println("0. Exit");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -98,6 +106,13 @@ public class MainUI {
                     break;
                 case 0:
                     System.out.println("Exiting application.");
+                    System.out.println("\n" +
+                            "  ____               ____             _ \n" +
+                            " | __ ) _   _  ___  | __ ) _   _  ___| |\n" +
+                            " |  _ \\| | | |/ _ \\ |  _ \\| | | |/ _ \\ |\n" +
+                            " | |_) | |_| |  __/ | |_) | |_| |  __/_|\n" +
+                            " |____/ \\__, |\\___| |____/ \\__, |\\___(_)\n" +
+                            "        |___/              |___/        \n");
                     System.exit(0);
                 default:
                     System.out.println("Invalid choice. Please try again.");

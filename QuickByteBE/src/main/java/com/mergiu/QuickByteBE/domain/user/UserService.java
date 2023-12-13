@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserObserver {
 
     private final UserRepository userRepository;
 
@@ -18,17 +18,18 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getUsers() {
+    public List<SimpleUser> getUsers() {
         return userRepository.findAll();
     }
 
-    public void addNewUser(User user) {
-        Optional<User> userOptional = userRepository.findByPhoneNumber(user.getPhoneNumber());
+    public void addNewUser(SimpleUser simpleUser) {
+        Optional<SimpleUser> userOptional = userRepository.findByPhoneNumber(simpleUser.getPhoneNumber());
 
         if (userOptional.isPresent())
             throw new IllegalStateException("Phone number taken");
 
-        userRepository.save(user);
+        userRepository.save(simpleUser);
+        onUserCreated(simpleUser);
     }
 
     public void deleteUser(Long userId) {
@@ -38,37 +39,64 @@ public class UserService {
             throw new IllegalStateException("User with id " + userId + " does not exist");
 
         userRepository.deleteById(userId);
+        onUserDeleted(userId);
     }
 
     @Transactional
     public void updateUser(Long userId, String firstName, String lastName, String phoneNumber) {
-        User user = userRepository.findById(userId)
+        SimpleUser simpleUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalStateException("user with id " + userId + " does not exist"));
 
         if (firstName != null &&
                 !firstName.isEmpty() &&
-                !Objects.equals(user.getFirstName(), firstName)) {
-            user.setFirstName(firstName);
+                !Objects.equals(simpleUser.getFirstName(), firstName)) {
+            simpleUser.setFirstName(firstName);
         }
 
         if (lastName != null &&
                 !lastName.isEmpty() &&
-                !Objects.equals(user.getLastName(), lastName)) {
-            user.setLastName(lastName);
+                !Objects.equals(simpleUser.getLastName(), lastName)) {
+            simpleUser.setLastName(lastName);
         }
 
         if (phoneNumber != null &&
                 !phoneNumber.isEmpty() &&
-                !Objects.equals(user.getPhoneNumber(), phoneNumber)) {
-            Optional<User> userOptional = userRepository.findByPhoneNumber(phoneNumber);
+                !Objects.equals(simpleUser.getPhoneNumber(), phoneNumber)) {
+            Optional<SimpleUser> userOptional = userRepository.findByPhoneNumber(phoneNumber);
 
             if (userOptional.isPresent()) {
                 throw new IllegalStateException("Phone number taken");
             }
 
-            user.setPhoneNumber(phoneNumber);
+            simpleUser.setPhoneNumber(phoneNumber);
         }
 
-        userRepository.save(user);
+        userRepository.save(simpleUser);
+        onUserUpdated(simpleUser);
+    }
+
+    @Override
+    public void onUserCreated(SimpleUser simpleUser) {
+        System.out.println("User created: " + simpleUser);
+    }
+
+    @Override
+    public void onUserUpdated(SimpleUser simpleUser) {
+        System.out.println("User updated: " + simpleUser);
+    }
+
+    @Override
+    public void onUserDeleted(Long userId) {
+        System.out.println("User deleted with ID: " + userId);
+    }
+
+    public void makeUserAdmin(Long userId) {
+        SimpleUser simpleUser = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("user with id " + userId + " does not exist"));
+
+        UserRoleDecorator adminUser = new UserRoleDecorator(simpleUser, "Admin");
+
+        userRepository.save(adminUser);
+        onUserUpdated(adminUser);
     }
 }

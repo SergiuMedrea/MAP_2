@@ -2,7 +2,7 @@ package com.mergiu.QuickByteBE.domain.review;
 
 import com.mergiu.QuickByteBE.domain.courier.Courier;
 import com.mergiu.QuickByteBE.domain.restaurant.Restaurant;
-import com.mergiu.QuickByteBE.domain.user.User;
+import com.mergiu.QuickByteBE.domain.user.SimpleUser;
 import jakarta.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -26,7 +26,7 @@ public class Review {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "id")
-    private User user;
+    private SimpleUser simpleUser;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_courier_id", referencedColumnName = "id")
@@ -45,8 +45,8 @@ public class Review {
     public Review() {
     }
 
-    public Review(User user, Courier courier, Restaurant restaurant, int rating, String comment) {
-        this.user = user;
+    public Review(SimpleUser simpleUser, Courier courier, Restaurant restaurant, int rating, String comment) {
+        this.simpleUser = simpleUser;
         this.courier = courier;
         this.restaurant = restaurant;
         this.rating = rating;
@@ -62,12 +62,12 @@ public class Review {
         this.id = reviewId;
     }
 
-    public User getUser() {
-        return user;
+    public SimpleUser getUser() {
+        return simpleUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(SimpleUser simpleUser) {
+        this.simpleUser = simpleUser;
     }
 
     public Courier getCourier() {
@@ -106,7 +106,7 @@ public class Review {
     public String toString() {
         return "Review{" +
                 "id=" + id +
-                ", user=" + user +
+                ", user=" + simpleUser +
                 ", courier=" + courier +
                 ", restaurant=" + restaurant +
                 ", rating=" + rating +

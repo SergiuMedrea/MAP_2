@@ -1,13 +1,13 @@
 package com.mergiu.QuickByteBE.domain.courier;
 
 import com.mergiu.QuickByteBE.domain.address.Address;
-import com.mergiu.QuickByteBE.domain.user.User;
+import com.mergiu.QuickByteBE.domain.user.SimpleUser;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "couriers")
 //@PrimaryKeyJoinColumn(name = "courierId")
-public class Courier extends User {
+public class Courier extends SimpleUser {
 
     private String vehicleType;
 

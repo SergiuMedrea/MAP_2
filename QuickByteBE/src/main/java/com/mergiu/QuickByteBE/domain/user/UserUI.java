@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 @Component
@@ -27,7 +28,8 @@ public class UserUI implements EntityUI {
             System.out.println("2. Add a new user");
             System.out.println("3. Delete a user");
             System.out.println("4. Update a user");
-            System.out.println("5. Back to Main Menu");
+            System.out.println("5. Make user admin");
+            System.out.println("6. Back to Main Menu");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline
@@ -46,7 +48,10 @@ public class UserUI implements EntityUI {
                     updateUser(scanner);
                     break;
                 case 5:
-                    return; // Return to the main menu
+                    manageUserRoles(scanner);
+                    break;
+                case 6:
+                    return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
@@ -54,8 +59,8 @@ public class UserUI implements EntityUI {
     }
 
     private void listAllUsers() {
-        List<User> users = userService.getUsers();
-        users.forEach(System.out::println);
+        List<SimpleUser> simpleUsers = userService.getUsers();
+        simpleUsers.forEach(System.out::println);
     }
 
     private void addNewUser(Scanner scanner) {
@@ -68,8 +73,8 @@ public class UserUI implements EntityUI {
         System.out.println("Enter phone number:");
         String phoneNumber = scanner.nextLine();
 
-        User newUser = new User(firstName, lastName, phoneNumber, null); // You might want to add address input
-        userService.addNewUser(newUser);
+        SimpleUser newSimpleUser = new SimpleUser(firstName, lastName, phoneNumber, null);
+        userService.addNewUser(newSimpleUser);
         System.out.println("User added successfully.");
     }
 
@@ -96,5 +101,37 @@ public class UserUI implements EntityUI {
 
         userService.updateUser(userId, firstName, lastName, phoneNumber);
         System.out.println("User updated successfully.");
+    }
+
+    private void manageUserRoles(Scanner scanner) {
+        System.out.println("Choose an option:");
+        System.out.println("1. Make a user Admin");
+        System.out.println("2. Back to User Menu");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                makeUserAdmin(scanner);
+                break;
+            case 2:
+                return;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
+    }
+
+    private void makeUserAdmin(Scanner scanner) {
+        System.out.println("Enter user ID to make admin:");
+        Long userId = scanner.nextLong();
+        scanner.nextLine();
+
+        try {
+            userService.makeUserAdmin(userId);
+            System.out.println("User made admin successfully!");
+        } catch (Exception e) {
+            System.out.println("Error making user admin: " + e.getMessage());
+        }
     }
 }

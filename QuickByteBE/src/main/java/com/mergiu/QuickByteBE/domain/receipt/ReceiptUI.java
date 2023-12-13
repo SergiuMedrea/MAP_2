@@ -1,5 +1,8 @@
 package com.mergiu.QuickByteBE.domain.receipt;
 
+import com.mergiu.QuickByteBE.domain.receipt.paymentStrategy.CardPaymentStrategy;
+import com.mergiu.QuickByteBE.domain.receipt.paymentStrategy.CashPaymentStrategy;
+import com.mergiu.QuickByteBE.domain.receipt.paymentStrategy.PaymentStrategy;
 import com.mergiu.QuickByteBE.ui.EntityUI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -83,8 +86,18 @@ public class ReceiptUI implements EntityUI {
         int amount = scanner.nextInt();
         scanner.nextLine(); // Consume the newline
 
-        System.out.println("Enter payment type:");
-        String paymentType = scanner.nextLine();
+        System.out.println("Choose payment method:");
+        System.out.println("1. Card");
+        System.out.println("2. Cash");
+        int paymentMethodChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline
+        PaymentStrategy paymentStrategy = createPaymentStrategy(paymentMethodChoice);
+        paymentStrategy.processPayment();
+        String paymentType;
+        if(paymentMethodChoice == 1)
+            paymentType = "Card";
+        else
+            paymentType = "Cash";
 
         System.out.println("Enter account information:");
         String accountInformation = scanner.nextLine();
@@ -106,13 +119,23 @@ public class ReceiptUI implements EntityUI {
         int newAmount = scanner.nextInt();
         scanner.nextLine(); // Consume the newline
 
-        System.out.println("Enter new payment type:");
-        String newPaymentType = scanner.nextLine();
+        System.out.println("Choose new payment method:");
+        System.out.println("1. Card");
+        System.out.println("2. Cash");
+        int paymentMethodChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline
+        PaymentStrategy newPaymentStrategy = createPaymentStrategy(paymentMethodChoice);
+        newPaymentStrategy.processPayment();
+        String paymentType;
+        if(paymentMethodChoice == 1)
+            paymentType = "Card";
+        else
+            paymentType = "Cash";
 
         System.out.println("Enter new account information:");
         String newAccountInformation = scanner.nextLine();
 
-        receiptService.updateReceipt(receiptId, newAmount, newPaymentType, newAccountInformation);
+        receiptService.updateReceipt(receiptId, newAmount, paymentType, newAccountInformation);
 
         System.out.println("Receipt updated successfully!");
     }
@@ -127,5 +150,16 @@ public class ReceiptUI implements EntityUI {
         receiptService.deleteReceipt(receiptId);
 
         System.out.println("Receipt deleted successfully!");
+    }
+
+    private PaymentStrategy createPaymentStrategy(int choice) {
+        switch (choice) {
+            case 1:
+                return new CardPaymentStrategy();
+            case 2:
+                return new CashPaymentStrategy();
+            default:
+                throw new IllegalArgumentException("Invalid payment method choice");
+        }
     }
 }

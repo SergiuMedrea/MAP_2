@@ -39,7 +39,7 @@ public class MenuItem {
 
     private String description;
 
-    @ManyToMany(mappedBy = "menuItems")
+    @ManyToMany(mappedBy = "menuItems", fetch = FetchType.EAGER)
     private Set<Order> menuOrders;
 
     public MenuItem() {

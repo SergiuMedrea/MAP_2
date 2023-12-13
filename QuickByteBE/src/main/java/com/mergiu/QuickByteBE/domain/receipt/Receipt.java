@@ -2,7 +2,8 @@ package com.mergiu.QuickByteBE.domain.receipt;
 
 
 import com.mergiu.QuickByteBE.domain.order.Order;
-import com.mergiu.QuickByteBE.domain.user.User;
+import com.mergiu.QuickByteBE.domain.receipt.paymentStrategy.PaymentStrategy;
+import com.mergiu.QuickByteBE.domain.user.SimpleUser;
 import jakarta.persistence.*;
 import javax.validation.constraints.Min;
 
@@ -10,7 +11,6 @@ import javax.validation.constraints.Min;
 @Entity
 @Table(name = "receipts")
 public class Receipt {
-
     @Id
     @SequenceGenerator(
             name = "receipt_sequence",
@@ -29,21 +29,21 @@ public class Receipt {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_user_id", referencedColumnName = "id")
-    private User user;
+    private SimpleUser simpleUser;
 
     @Min(value = 0, message = "Amount must be greater than or equal to 0")
     private int amount;
-
     private String paymentType;
-
     private String accountInformation;
+    @Transient
+    private PaymentStrategy paymentStrategy;
 
     public Receipt() {
     }
 
-    public Receipt(Order order, User user, int amount, String paymentType, String accountInformation) {
+    public Receipt(Order order, SimpleUser simpleUser, int amount, String paymentType, String accountInformation) {
         this.order = order;
-        this.user = user;
+        this.simpleUser = simpleUser;
         this.amount = amount;
         this.paymentType = paymentType;
         this.accountInformation = accountInformation;
@@ -67,12 +67,12 @@ public class Receipt {
         this.order = order;
     }
 
-    public User getUser() {
-        return user;
+    public SimpleUser getUser() {
+        return simpleUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(SimpleUser simpleUser) {
+        this.simpleUser = simpleUser;
     }
 
     public int getAmount() {
@@ -104,11 +104,23 @@ public class Receipt {
         return "Receipt{" +
                 "id=" + id +
                 ", order=" + order +
-                ", user=" + user +
+                ", user=" + simpleUser +
                 ", amount=" + amount +
                 ", paymentType='" + paymentType + '\'' +
                 ", accountInformation='" + accountInformation + '\'' +
                 '}';
+    }
+
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
+    }
+
+    public void processPayment() {
+        if (paymentStrategy != null) {
+            paymentStrategy.processPayment();
+        } else {
+            throw new IllegalStateException("Payment strategy not set");
+        }
     }
 }
 
