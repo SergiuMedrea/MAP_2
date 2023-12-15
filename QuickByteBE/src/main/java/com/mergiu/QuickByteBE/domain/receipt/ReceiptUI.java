@@ -60,11 +60,11 @@ public class ReceiptUI implements EntityUI {
         }
     }
 
-    private void listAllReceipts() {
+    public void listAllReceipts() {
         receiptService.getAllReceipts().forEach(System.out::println);
     }
 
-    private void getReceiptById() {
+    public void getReceiptById() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter receipt ID:");
@@ -79,7 +79,7 @@ public class ReceiptUI implements EntityUI {
         );
     }
 
-    private void createReceipt() {
+    public void createReceipt() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter amount:");
@@ -108,7 +108,7 @@ public class ReceiptUI implements EntityUI {
         System.out.println("Receipt created successfully!");
     }
 
-    private void updateReceipt() {
+    public void updateReceipt() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter receipt ID to update:");
