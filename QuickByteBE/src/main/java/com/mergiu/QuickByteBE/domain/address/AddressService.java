@@ -37,26 +37,22 @@ public class AddressService {
                 .orElseThrow(() -> new IllegalStateException("address with id " + addressId + " does not exist"));
 
         if (street != null &&
-                !street.isEmpty() &&
-                !street.equals(address.getStreet())) {
+                !street.isEmpty()) {
             address.setStreet(street);
         }
 
         if (postalCode != null &&
-                !postalCode.isEmpty() &&
-                !postalCode.equals(address.getPostalCode())) {
+                !postalCode.isEmpty()) {
             address.setPostalCode(postalCode);
         }
 
         if (city != null &&
-                !city.isEmpty() &&
-                !city.equals(address.getCity())) {
+                !city.isEmpty()) {
             address.setCity(city);
         }
 
         if (country != null &&
-                !country.isEmpty() &&
-                !country.equals(address.getCountry())) {
+                !country.isEmpty()) {
             address.setCountry(country);
         }
 

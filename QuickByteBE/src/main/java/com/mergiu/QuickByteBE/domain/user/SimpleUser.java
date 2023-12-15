@@ -137,6 +137,6 @@ public class SimpleUser implements User {
 
     @Override
     public String getUsername() {
-        return "firstName" + "LastName";
+        return firstName + lastName;
     }
 }
