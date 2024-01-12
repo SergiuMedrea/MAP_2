@@ -42,7 +42,6 @@ public class UserService implements UserObserver {
         onUserDeleted(userId);
     }
 
-    @Transactional
     public void updateUser(Long userId, String firstName, String lastName, String phoneNumber) {
         SimpleUser simpleUser = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalStateException("user with id " + userId + " does not exist"));
